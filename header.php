@@ -1,3 +1,8 @@
+<?php 
+include('functions.php'); 
+include('JS.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-footer="true">
   <head>
@@ -44,6 +49,8 @@
 
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/base/loader.js"></script>
+
+
   </head>
 
   <body>
