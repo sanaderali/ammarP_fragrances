@@ -1,3 +1,33 @@
+<?php include('connection.php'); 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+  $query = "SELECT * FROM users WHERE email = '$email'";
+  $result = mysqli_query($db, $query);
+
+  if ($result) {
+      $row = mysqli_fetch_assoc($result);
+      if ($password == $row['password']) {
+        if ($row['role'] == 'admin') {
+          header("Location: store-admin.php");
+          exit(); // Important to prevent further execution
+      } else {
+          header("Location: orders.php");
+          exit(); // Important to prevent further execution
+      }
+      } else {
+          echo "Invalid email or password.";
+          exit();
+      }
+  } else {
+      echo "Query failed: " . mysqli_error($db);
+  }
+}
+// exit();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -98,7 +128,7 @@
                   </p>
                 </div>
                 <div>
-                  <form action=""  method="post" id="loginForm" class="tooltip-end-bottom" novalidate>
+                  <form action="index.php"  method="post"  class="tooltip-end-bottom" novalidate>
                     <div class="mb-3 filled form-group tooltip-end-top">
                       <i data-acorn-icon="email"></i>
                       <input  id="email" class="form-control" placeholder="Email" name="email" />
