@@ -62,7 +62,8 @@
                     </div>
                   </div>
 
-                  <!-- <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="products.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
                         <div class="sh-5 sw-5 border border-dashed rounded-xl mx-auto">
@@ -70,11 +71,12 @@
                             <i data-acorn-icon="plus" class="text-white"></i>
                           </div>
                         </div>
-                        <div class="heading text-center text-muted mb-0 d-flex align-items-center lh-1">Add New</div>
+                        <div class="heading text-center text-muted mb-0 d-flex align-items-center lh-1">Add New Product</div>
                         <div class="text-small text-primary">&nbsp;</div>
                       </div>
                     </div>
-                  </div> -->
+                    </a>
+                  </div>
                 </div>
               </div>
               <!-- Inventory End -->
