@@ -1,11 +1,27 @@
-<?php
-
-?>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
 $(document).ready(function() {
-   
+
+    $('.btn-close-form').click(function() {
+        $('#user-details')[0].reset(); 
+        $('#user-image-preview').attr('src','uploads/defualt_profile.png');
+        $('#user-password').attr('required','');
+        $('#user-image').attr('required','');
+        $('#user-id').val('');
+        $('#btn-saveUser').text('Add User').addClass('btn-primary').removeClass('btn-warning');
+
+    });
+
+    $('.product-close-form').click(function() {
+        $('#product-details')[0].reset(); 
+        $('#product-image-preview').attr('src','uploads/defualt_products.png');
+        $('#product-image').attr('required','');
+        $('#product-id').val('');
+        $('#btn-savePoduct').text('Add Product').addClass('btn-primary').removeClass('btn-warning');
+
+    });
+
     $(".edit-button").on("click", function() {
         var userData = JSON.parse($(this).attr("data-user"));
         var editButton = $(this);
@@ -13,8 +29,29 @@ $(document).ready(function() {
         $('#user-email').val(userData.email);
         // $('#user-password').val(userData.password);
         $('#user-id').val(userData.id);
-        $('#user-image-preview').attr('src',userData.userImage);
+        $('#user-password').removeAttr('required');
+        $('#user-image').removeAttr('required');
+        if(userData.userImage){
+            $('#user-image-preview').attr('src',userData.userImage);
+        }else{
+              $('#user-image-preview').attr('src','uploads/defualt_profile.png');
+        }
         $('#btn-saveUser').text('Update User').addClass('btn-warning').removeClass('btn-primary');
+
+    });
+
+    $(".edit-product").on("click", function() {
+        var productData = JSON.parse($(this).attr("data-product"));
+        var editButton = $(this);
+        $('#product-name').val(productData.name);
+        $('#product-id').val(productData.id);
+        $('#product-image').removeAttr('required');
+        if(productData.productImage){
+            $('#product-image-preview').attr('src',productData.productImage);
+        }else{
+              $('#product-image-preview').attr('src','uploads/defualt_products.png');
+        }
+        $('#btn-savePoduct').text('Update Product').addClass('btn-warning').removeClass('btn-primary');
 
     });
 
@@ -49,6 +86,40 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".delete-product").on("click", function() {
+        var productId = $(this).attr("data-id");
+        var deleteButton = $(this); 
+        $.ajax({
+            type: "POST",
+            url: "functions.php", 
+            data: { action: "deleteProduct", productId: productId },
+            success: function(response) {
+                if (response.trim() === "success") { 
+                    var card = deleteButton.closest(".card");
+                    card.slideUp("slow", function() {
+                        card.remove(); 
+                    });
+                } 
+               else if (response.trim() === "no-procut") { 
+                    var card = deleteButton.closest(".card");
+                    card.slideUp("slow", function() {
+                        card.remove(); 
+                    });
+                    $('#last_productCard').removeClass('d-none');
+                } 
+                else {
+                    alert("Failed to delete product.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                alert("An error occurred. Please try again later.");
+            }
+        });
+    });
+
+    
 });
 
 </script>

@@ -1,21 +1,37 @@
 <?php include('connection.php'); 
 
+session_start();
+
+// Check if the user is logged in and has the appropriate role
+if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
+  if ($_SESSION['user_role'] == 'admin') {
+    header("Location: store-admin.php");
+    exit();
+    } else {
+        header("Location: orders.php");
+        exit();
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST["email"];
   $password = $_POST["password"];
+
   $query = "SELECT * FROM users WHERE email = '$email'";
   $result = mysqli_query($db, $query);
 
   if ($result) {
       $row = mysqli_fetch_assoc($result);
-      if ($password == $row['password']) {
-        if ($row['role'] == 'admin') {
-          header("Location: store-admin.php");
-          exit(); // Important to prevent further execution
-      } else {
-          header("Location: orders.php");
-          exit(); // Important to prevent further execution
-      }
+      if (password_verify($password, $row['password'])) {
+          $_SESSION['user'] = $row;
+          $_SESSION['user_role'] = $row['role'];
+          if ($row['role'] == 'admin') {
+              header("Location: store-admin.php");
+              exit();
+          } else {
+              header("Location: orders.php");
+              exit();
+          }
       } else {
           echo "Invalid email or password.";
           exit();
@@ -24,7 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo "Query failed: " . mysqli_error($db);
   }
 }
-// exit();
+
+
 ?>
 
 

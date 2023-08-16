@@ -28,7 +28,7 @@
                           <i data-acorn-icon="radish" class="text-white"></i>
                         </div>
                         <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Products</div>
-                        <div class="text-small text-primary">14 PRODUCTS</div>
+                        <div class="text-small text-primary"><?= totalStats($db,'products') ?? 0 ?> Products</div>
                       </div>
                     </div>
                   </div>
@@ -39,7 +39,7 @@
                           <i data-acorn-icon="loaf" class="text-white"></i>
                         </div>
                         <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Orders</div>
-                        <div class="text-small text-primary">8 ORDERS</div>
+                        <div class="text-small text-primary"><?= totalStats($db,'orders') ?? 0 ?>  ORDERS</div>
                       </div>
                     </div>
                   </div>
@@ -50,7 +50,7 @@
                           <i data-acorn-icon="pepper" class="text-white"></i>
                         </div>
                         <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Users</div>
-                        <div class="text-small text-primary">21 USERS</div>
+                        <div class="text-small text-primary"><?= totalStats($db,'users') ?? 0 ?> USERS</div>
                       </div>
                     </div>
                   </div>
@@ -197,19 +197,19 @@
                 <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
                   <div class="d-flex flex-column h-100 justify-content-between align-items-start">
                     <div>
-                      <div class="cta-1 text-primary mb-1">124</div>
+                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Pending') ?? 0 ?></div>
                       <div class="lh-1-25 mb-0">Received Orders</div>
                     </div>
                     <div>
-                      <div class="cta-1 text-primary mb-1">64</div>
+                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Completed') ?? 0 ?></div>
                       <div class="lh-1-25 mb-0">Completed Orders</div>
                     </div>
                     <div>
-                      <div class="cta-1 text-primary mb-1">34</div>
+                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Pending') ?? 0 ?></div>
                       <div class="lh-1-25 mb-0">Pending Orders</div>
                     </div>
                     <div>
-                      <div class="cta-1 text-primary mb-1">23</div>
+                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Shipped') ?? 0 ?> </div>
                       <div class="lh-1-25 mb-0">Shipped Orders</div>
                     </div>
                   </div>
