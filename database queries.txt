@@ -1,7 +1,46 @@
+use inventory_db;
+SELECT * FROM inventory_db.users;
+SELECT * FROM inventory_db.products;
+SELECT * FROM inventory_db.orders;
+SELECT * FROM inventory_db.order_details;
 
 
-fragrance queries............
+SELECT o.id, o.order_date, o.status, u.name, u.shop_name,p.name as prodcut_name, od.quantity,od.avialable   FROM orders as o join users as u on o.user_id = u.id join order_details as od on o.id = od.order_id join products as p on od.product_id = p.id ;
 
+SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
+       p.name as product_name, od.quantity, od.avialable
+FROM orders as o
+JOIN users as u ON o.user_id = u.id
+JOIN order_details as od ON o.id = od.order_id
+JOIN products as p ON od.product_id = p.id
+WHERE u.id = 37;
+
+
+
+
+
+SELECT
+    o.id,
+    o.order_date,
+    o.status,
+    u.name AS user_name,
+    u.shop_name,
+    GROUP_CONCAT(p.name SEPARATOR ', ') AS product_names,
+    GROUP_CONCAT(od.quantity SEPARATOR ', ') AS quantities,
+    GROUP_CONCAT(od.avialable SEPARATOR ', ') AS available_quantities
+FROM
+    orders AS o
+JOIN
+    users AS u ON o.user_id = u.id
+JOIN
+    order_details AS od ON o.id = od.order_id
+JOIN
+    products AS p ON od.product_id = p.id
+GROUP BY
+    o.id;
+
+
+alter table users add column shop_name varchar (255) after name;
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -23,6 +62,15 @@ CREATE TABLE order_details (
     order_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
+    avialable INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+
+
+
+
+
+
+ 
