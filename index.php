@@ -1,6 +1,7 @@
 <?php include('connection.php'); 
 
 session_start();
+$errors = NULL;
 
 // Check if the user is logged in and has the appropriate role
 if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
@@ -33,12 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               exit();
           }
       } else {
-          echo "Invalid email or password.";
-          exit();
+        $errors =  "Invalid email or password.";
       }
-  } else {
-      echo "Query failed: " . mysqli_error($db);
-  }
+   } 
+   //else {
+  //     echo "Query failed: " . mysqli_error($db);
+  // }
 }
 
 
@@ -148,13 +149,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <form action="index.php"  method="post"  class="tooltip-end-bottom" novalidate>
                     <div class="mb-3 filled form-group tooltip-end-top">
                       <i data-acorn-icon="email"></i>
-                      <input  id="email" class="form-control" placeholder="Email" name="email" />
+                      <input  id="email" type="email" required="" class="form-control" placeholder="Email" name="email" value="<?= $_POST["email"] ?? '' ?>" />
                     </div>
                     <div class="mb-3 filled form-group tooltip-end-top">
                       <i data-acorn-icon="lock-off"></i>
-                      <input class="form-control pe-7" name="password" id="password" type="password" placeholder="Password" />
+                      <input class="form-control pe-7" required="" name="password" id="password" type="password" placeholder="Password" />
                       <a class="text-small position-absolute t-3 e-3" href="Pages.Authentication.ForgotPassword.html">Forgot?</a>
                     </div>
+                    <div class="mb-3 filled form-group tooltip-end-top">
+                      <?php if($errors): ?>
+                        <span class="text-danger "> * <?= $errors ?></span>
+                    </div>
+                    <?php endif; ?>
                     <button type="submit" class="btn btn-lg btn-primary">Login</button>
                   </form>
                 </div>
