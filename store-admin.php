@@ -21,6 +21,11 @@
               <h2 class="small-title">Inventory</h2>
               <div class="mb-5">
                 <div class="row g-2">
+                <?php
+            if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
+              if ($_SESSION['user_role'] == 'admin') {
+                ?>
+                            
                   <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
@@ -36,17 +41,6 @@
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
                         <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
-                          <i data-acorn-icon="loaf" class="text-white"></i>
-                        </div>
-                        <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Orders</div>
-                        <div class="text-small text-primary"><?= totalStats($db,'orders') ?? 0 ?>  ORDERS</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card hover-scale-up cursor-pointer sh-19">
-                      <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
-                        <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
                           <i data-acorn-icon="pepper" class="text-white"></i>
                         </div>
                         <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Users</div>
@@ -54,6 +48,20 @@
                       </div>
                     </div>
                   </div>
+                  <?php }
+                  } ?>
+                  <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card hover-scale-up cursor-pointer sh-19">
+                      <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
+                        <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
+                          <i data-acorn-icon="loaf" class="text-white"></i>
+                        </div>
+                        <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Orders</div>
+                        <div class="text-small text-primary"><?= totalStats($db,'orders') ?? 0 ?>  ORDERS</div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
