@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2023 at 02:29 AM
+-- Generation Time: Aug 16, 2023 at 08:36 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -39,17 +39,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`) VALUES
-(1, 1, '2023-08-15 22:59:56', 'Pending'),
-(2, 1, '2023-08-15 23:07:05', 'Pending'),
-(3, 1, '2023-08-15 23:14:37', 'Pending'),
-(4, 1, '2023-08-15 23:20:15', 'Pending'),
-(5, 1, '2023-08-15 23:21:05', 'Pending'),
-(6, 1, '2023-08-15 23:22:05', 'Pending'),
-(7, 1, '2023-08-15 23:22:45', 'Pending'),
-(8, 1, '2023-08-15 23:23:20', 'Pending'),
-(9, 1, '2023-08-15 23:29:21', 'Pending'),
-(10, 1, '2023-08-15 23:29:27', 'Pending'),
-(11, 1, '2023-08-16 00:11:44', 'Pending');
+(14, 34, '2023-08-16 16:46:20', 'Completed'),
+(15, 34, '2023-08-16 16:47:14', 'Canceled'),
+(16, 37, '2023-08-16 18:21:16', 'Pending'),
+(17, 37, '2023-08-16 18:29:04', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -70,30 +63,17 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `avialable`) VALUES
-(1, 2, 3, 13, 13),
-(2, 2, 2, 134, 134),
-(3, 2, 1, 14, 14),
-(4, 3, 3, 1, 1),
-(5, 3, 2, 1, 1),
-(6, 3, 1, 1, 1),
-(7, 4, 3, 1, 1),
-(8, 4, 2, 1, 1),
-(9, 4, 1, 1, 1),
-(10, 6, 2, 1, 1),
-(11, 6, 1, 1, 1),
-(12, 8, 3, 1, 1),
-(13, 8, 2, 1, 1),
-(14, 8, 1, 1, 1),
-(15, 9, 3, 1, 1),
-(16, 9, 2, 1, 1),
-(17, 9, 1, 1, 1),
-(18, 10, 3, 1, 1),
-(19, 10, 2, 1, 1),
-(20, 10, 1, 1, 1),
-(21, 11, 4, 1, 1),
-(22, 11, 3, 1, 1),
-(23, 11, 2, 1, 1),
-(24, 11, 1, 1, 1);
+(25, 14, 8, 1, 1),
+(26, 14, 7, 1, 1),
+(27, 14, 6, 1, 1),
+(28, 15, 8, 8, 8),
+(29, 15, 6, 4, 4),
+(30, 16, 8, 1, 1),
+(31, 16, 7, 1, 1),
+(32, 16, 6, 1, 1),
+(33, 17, 8, 1343, 1343),
+(34, 17, 7, 1343, 1343),
+(35, 17, 6, 1343, 1343);
 
 -- --------------------------------------------------------
 
@@ -113,11 +93,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `productImage`, `status`) VALUES
-(1, 'testing', 'uploads/defualt_profile.png', 1),
-(2, 'ghgh', 'uploads/signature (6).png', 1),
-(3, 'jhjhjhhghjhj', 'uploads/defualt_profile.png', 1),
-(4, 'hhb', 'uploads/signature (6).png', 1),
-(5, 'hhbh', 'uploads/signature (6).png', 1);
+(6, 'prouduct 1', 'uploads/defualt_profile.png', 1),
+(7, 'product 2', 'uploads/defualt_products.png', 1),
+(8, 'product 3', 'uploads/defualt_products.png', 1);
 
 -- --------------------------------------------------------
 
@@ -128,6 +106,7 @@ INSERT INTO `products` (`id`, `name`, `productImage`, `status`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `shop_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `role` varchar(100) NOT NULL DEFAULT 'user',
   `creadted_by` int(11) NOT NULL,
@@ -141,14 +120,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `role`, `creadted_by`, `created_at`, `password`, `userImage`, `status`) VALUES
-(1, 'ADMIN', 'admin@gmail.com', 'admin', 1, '2023-08-13 21:47:06', '$10$9AgbBO.wPTR6WVYUlHk9qunw64JFfkbLZWkCYRuZlzos.Ope0sJ56', 'uploads/Screenshot (3).png', 1),
-(26, 'USER', 'user@gmail.com', 'user', 0, '0000-00-00 00:00:00', '$2y$10$8n8oyGY1PdLczO/ZdVuL0u4rWRfgfNFYVrfcGoUiea8kUavLi/NDG', 'uploads/Screenshot (3).png', 2),
-(28, 'ali sans', 'adsdf@gmail.com', 'user', 0, '2023-08-14 10:36:49', '', 'uploads/pexels-kindel-media-7688336.jpg', 1),
-(29, 'testing ', 'tstisng@gmail.com', 'user', 0, '2023-08-14 10:37:19', '$2y$10$9AgbBO.wPTR6WVYUlHk9qunw64JFfkbLZWkCYRuZlzos.Ope0sJ56', 'uploads/defualt_profile.png', 1),
-(30, 'ali', 'admin@gjakjfd.com', 'user', 0, '2023-08-16 01:15:43', '$2y$10$sTHJ9lQegTmMhuxGekpNWeAtCd4wUM9xbJOfANmoIUKWm1/1irMgG', '', 1),
-(31, 'kmk', 'sdksdk@gmail.com', 'user', 0, '2023-08-16 01:22:56', '$2y$10$bp0Kbtfgnk4t2PcVNK4ljO.lqQpfYmWs1KaUuEF.1r0oiTBVa6Rq6', 'uploads/IMG_5110 (1).jpg', 1),
-(32, 'testing ', 'testing@gmail.com', 'admin', 0, '2023-08-16 05:08:18', '$2y$10$YtIF.NTkhJ7QOaYHeHlmY.TuXLd4KGGiQc.j8mpczCQTa/23WepRm', 'uploads/defualt_products.png', 1);
+INSERT INTO `users` (`id`, `name`, `shop_name`, `email`, `role`, `creadted_by`, `created_at`, `password`, `userImage`, `status`) VALUES
+(34, 'Admin', NULL, 'admin@gmail.com', 'admin', 1, '2023-08-16 18:22:14', '$2y$10$PLOLIaUUF7wpT59JVeTTGuWakSk7TMbdhjrImiBPYqUAT2r2XgMf.', 'uploads/defualt_products.png', 1),
+(35, 'User', NULL, 'user@gmail.com', 'user', 0, '2023-08-16 18:23:29', '$2y$10$wV.aCe8MbNtRoY4UJGRHtevG7JsSLyb2ppX1L93UjDQPUJj4cRrES', 'uploads/defualt_products.png', 1),
+(36, 'tesingshop', 'test tstingg', 'shopuser@gmail.com', 'user', 0, '2023-08-16 21:31:58', '', 'uploads/defualt_products.png', 1),
+(37, 'test user', 'test shop name', 'usernew@gmail.com', 'user', 0, '2023-08-16 23:20:36', '$2y$10$dYShzl0NyooMY4m.NFgOOeD9bzeKgUHIKogvgvNNzPB8JcLoXXJFm', 'uploads/defualt_profile.png', 1);
 
 --
 -- Indexes for dumped tables
@@ -189,25 +165,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables
