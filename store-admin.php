@@ -136,15 +136,15 @@ $orders = getAllOrders();
                   <div class="d-flex flex-column h-100 justify-content-between align-items-start">
                     <div>
                       <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Pending') ?? 0 ?></div>
-                      <div class="lh-1-25 mb-0">Received Orders</div>
+                      <div class="lh-1-25 mb-0">Pending Orders</div>
                     </div>
                     <div>
                       <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Completed') ?? 0 ?></div>
                       <div class="lh-1-25 mb-0">Completed Orders</div>
                     </div>
                     <div>
-                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Pending') ?? 0 ?></div>
-                      <div class="lh-1-25 mb-0">Pending Orders</div>
+                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Canceled') ?? 0 ?></div>
+                      <div class="lh-1-25 mb-0">Canceled Orders</div>
                     </div>
                     <div>
                       <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Shipped') ?? 0 ?> </div>
