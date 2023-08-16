@@ -1,6 +1,7 @@
 <?php
 include('header.php');
 $orders = getAllOrders();
+$success = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $orderID = $_POST["id"];
   $newStatus = $_POST["status"];
@@ -9,11 +10,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $query = "UPDATE orders SET status = '$newStatus' WHERE id = '$orderID'";
   $result = mysqli_query($db, $query);
 
-  if ($result) {
-      echo "Status updated successfully.";
-  } else {
-      echo "Error updating status: " . mysqli_error($db);
-  }
+    if ($result) {
+      $success = 'yes';
+      ?>
+              <script>
+                  setTimeout(function() {
+                      window.location.href = "order-manage.php";
+                  }, 1000); 
+              </script>';
+              <?php
+    } else {
+        echo '<div class="alert alert-danger" role="alert">
+                  Error updating status: ' . mysqli_error($db) . '
+              </div>';
+    }
+
 }
 
 ?>
@@ -31,6 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </nav>
         </div>
       </div>
+      <?php if($success) : 
+        ?>
+      <div id="order-statusChange" class=" col-8 mx-auto text-center text-success text-uppercase bg-tertiary mb-2 p-2">
+       *  Oder Status chanages Successfully 
+      </div>
+      <?php endif; ?>
     </div>
 
 
