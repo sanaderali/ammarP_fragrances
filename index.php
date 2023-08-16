@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   Welcome to Ammar's Fragrances Inventory management software, please use the logins provied
                   </p>
                   <div class="mb-5">
-                    <a class="btn btn-lg btn-outline-white" href="index.html">Learn More</a>
+                    <a class="btn btn-lg btn-outline-white" href="https://techsolutionspro.co.uk/contact-us/" target="b">Contact Us</a>
                   </div>
                 </div>
               </div>
@@ -139,9 +139,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="mb-5">
                   <p class="h6">Please use your credentials to login.</p>
                   <p class="h6">
-                    If you are not a member, please
-                    <a href="#">Contact Us</a>
-                    .
+                  Ring me on
+                    <a href="tel:01159902782">0115 990 2782</a>
                   </p>
                 </div>
                 <div>
