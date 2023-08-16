@@ -1,4 +1,7 @@
-<?php include('header.php') ?>
+<?php 
+include('header.php');
+$orders = getAllOrders();
+?>
       <main>
         <div class="container">
           <div class="row">
@@ -81,7 +84,7 @@
 
               <!-- Products Start -->
               <div class="d-flex justify-content-between">
-                <h2 class="small-title">Stocks</h2>
+                <h2 class="small-title">Top Orders</h2>
                 <button class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small" type="button">
                   <span class="align-bottom">View All</span>
                   <i data-acorn-icon="chevron-right" class="align-middle" data-acorn-size="12"></i>
@@ -89,6 +92,11 @@
               </div>
               <div class="scroll-out mb-5">
                 <div class="scroll-by-count mb-n2" data-count="5">
+
+              <?php 
+              $index =1;
+               foreach($orders as $key => $val):
+              ?>
                   <div class="card mb-2">
                     <div class="row g-0 sh-14 sh-md-10">
                       <div class="col-auto h-100">
@@ -100,99 +108,21 @@
                         <div class="card-body pt-0 pb-0 h-100">
                           <div class="row g-0 h-100 align-content-center">
                             <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Pages.Portfolio.Detail.html">Barmbrack</a>
+                              <a href="Pages.Portfolio.Detail.html"><?= $val['shop_name'] ?? '' ?></a>
                             </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium">Whole Wheat</div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.543 Sales</div>
+                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium"><?= $val['user_name'] ?? '' ?></div>
+                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium"><?= date("d F Y", strtotime($val['order_date'])); ?></div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <div class="card mb-2">
-                    <div class="row g-0 sh-14 sh-md-10">
-                      <div class="col-auto h-100">
-                        <a href="Pages.Portfolio.Detail.html">
-                          <img src="img/product/small/product-5.webp" alt="alternate text" class="card-img card-img-horizontal sw-13 sw-md-12" />
-                        </a>
-                      </div>
-                      <div class="col">
-                        <div class="card-body pt-0 pb-0 h-100">
-                          <div class="row g-0 h-100 align-content-center">
-                            <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Pages.Portfolio.Detail.html">Cheesymite Scroll</a>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium">Whole Wheat</div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">2.701 Sales</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card mb-2">
-                    <div class="row g-0 sh-14 sh-md-10">
-                      <div class="col-auto h-100">
-                        <a href="Pages.Portfolio.Detail.html">
-                          <img src="img/product/small/product-3.webp" alt="alternate text" class="card-img card-img-horizontal sw-13 sw-md-12" />
-                        </a>
-                      </div>
-                      <div class="col">
-                        <div class="card-body pt-0 pb-0 h-100">
-                          <div class="row g-0 h-100 align-content-center">
-                            <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Pages.Portfolio.Detail.html">Cholermüs</a>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium">Multigrain</div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">4.024 Sales</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card mb-2">
-                    <div class="row g-0 sh-14 sh-md-10">
-                      <div class="col-auto h-100">
-                        <a href="Pages.Portfolio.Detail.html">
-                          <img src="img/product/small/product-6.webp" alt="alternate text" class="card-img card-img-horizontal h-100 sw-13 sw-md-12" />
-                        </a>
-                      </div>
-                      <div class="col">
-                        <div class="card-body pt-0 pb-0 h-100">
-                          <div class="row g-0 h-100 align-content-center">
-                            <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Pages.Portfolio.Detail.html">Ruisreikäleipä</a>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium">Sourdough</div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.972 Sales</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card mb-2">
-                    <div class="row g-0 sh-14 sh-md-10">
-                      <div class="col-auto h-100">
-                        <a href="Pages.Portfolio.Detail.html">
-                          <img src="img/product/small/product-8.webp" alt="alternate text" class="card-img card-img-horizontal sw-13 sw-md-12" />
-                        </a>
-                      </div>
-                      <div class="col">
-                        <div class="card-body pt-0 pb-0 h-100">
-                          <div class="row g-0 h-100 align-content-center">
-                            <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Pages.Portfolio.Detail.html">Buccellato di Lucca</a>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium">Whole Wheat</div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.352 Sales</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <?php
+          $index++;
+          if($index == 5){
+            break;
+          }
+          endforeach; ?>
                 </div>
               </div>
               <!-- Products End -->
