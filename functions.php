@@ -82,6 +82,7 @@ function deleteUser($db, $userId) {
 
 function storeUser($db, $postData, $imagePath = NULL) {
     $name = mysqli_real_escape_string($db, $postData["name"]);
+    $shopName = mysqli_real_escape_string($db, $postData["shop-name"]);
     $email = mysqli_real_escape_string($db, $postData["email"]);
     $password = mysqli_real_escape_string($db, $postData["password"]);
     $id = mysqli_real_escape_string($db, $postData["id"]);
@@ -94,15 +95,15 @@ function storeUser($db, $postData, $imagePath = NULL) {
     $result = false;
     if (!empty($id)) {
         if (!empty($imagePath)) {
-            $query = "UPDATE users SET name = '$name', email = '$email', password = '$hashedPassword', userImage = '$imagePath' WHERE id = $id";
+            $query = "UPDATE users SET name = '$name', shop_name = '$shopName', email = '$email', password = '$hashedPassword', userImage = '$imagePath' WHERE id = $id";
         } else {
-            $query = "UPDATE users SET name = '$name', email = '$email', password = '$hashedPassword' WHERE id = $id";
+            $query = "UPDATE users SET name = '$name', shop_name = '$shopName', email = '$email', password = '$hashedPassword' WHERE id = $id";
         }
     } else { 
         if (!empty($imagePath)) {
-            $query = "INSERT INTO users (name, email, password, userImage) VALUES ('$name', '$email', '$hashedPassword', '$imagePath')";
+            $query = "INSERT INTO users (name, shop_name, email, password, userImage) VALUES ('$name','$shopName', '$email', '$hashedPassword', '$imagePath')";
         } else {
-            $query = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashedPassword')";
+            $query = "INSERT INTO users (name, shop_name, email, password) VALUES ('$name', '$email', '$shopName', '$hashedPassword')";
         }
     }
 
@@ -177,6 +178,47 @@ function getAllUsers() {
     }
 
     return $users;
+}
+
+function getAllOrders() {
+    global $db; 
+
+    $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
+              p.name as product_name, od.quantity, od.avialable
+              FROM orders as o
+              join users as u on o.user_id = u.id
+              join order_details as od on o.id = od.order_id
+              join products as p on od.product_id = p.id";
+    
+    $result = mysqli_query($db, $query);
+    $orders = array();
+
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $orderIndex = $row['id']; // Use the order ID as the index
+            
+            if (!isset($orders[$orderIndex])) {
+                $orders[$orderIndex] = array(
+                    'order_id' => $row['id'],
+                    'order_date' => $row['order_date'],
+                    'status' => $row['status'],
+                    'user_name' => $row['user_name'],
+                    'shop_name' => $row['shop_name'],
+                    'product_details' => array()
+                );
+            }
+
+            $productDetails = array(
+                'product_name' => $row['product_name'],
+                'quantity' => $row['quantity'],
+                'available_quantities' => $row['avialable']
+            );
+
+            $orders[$orderIndex]['product_details'][] = $productDetails;
+        }
+    }
+
+    return $orders;
 }
 
 function getOneUsers() {

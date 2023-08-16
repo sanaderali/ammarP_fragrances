@@ -203,12 +203,12 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['user_role'])) {
                   <span class="label">Products</span>
                 </a> 
               </li>
-              <!-- <li>
-                <a href="orders.php" data-href="Dashboards.html">
+              <li>
+                <a href="order-manage.php" data-href="Dashboards.html">
                   <i data-acorn-icon="home" class="icon" data-acorn-size="18"></i>
                   <span class="label">Orders</span>
                 </a> 
-              </li> -->
+              </li>
               <li>
                 <a href="users.php" data-href="Dashboards.html">
                   <i data-acorn-icon="home" class="icon" data-acorn-size="18"></i>
@@ -224,7 +224,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['user_role'])) {
                 </a> 
               </li>
               <li>
-                <a href="orders.php" data-href="Dashboards.html">
+                <a href="order-manage.php" data-href="Dashboards.html">
                   <i data-acorn-icon="home" class="icon" data-acorn-size="18"></i>
                   <span class="label">Orders</span>
                 </a> 

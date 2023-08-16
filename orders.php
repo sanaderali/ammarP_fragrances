@@ -22,6 +22,14 @@ $AllProducts = getAllProduct();
         <!-- Title and Top Buttons Start -->
         <div class="page-title-container">
             <div class="row g-0">
+            <div class="d-flex justify-content-end">
+            <a href="order-manage.php" class="btn btn-info  mb-3 " >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acorn-icons acorn-icons-plus undefined">
+                    <path d="M10 17 10 3M3 10 17 10"></path>
+                </svg>
+                Order Listing
+            </a>
+        </div>
                 <!-- Title Start -->
                 <!-- <div class="col-auto mb-3 mb-md-0 me-auto">
                 <div class="w-auto sw-md-30">
@@ -265,6 +273,7 @@ $AllProducts = getAllProduct();
   function submitOrder() {
 
     const selectedProducts = [];
+    let user_id = "<?= $_SESSION['user']['id'] ?? '' ?>";
     const checkboxes = document.querySelectorAll('.product-checkboxes');
     
     checkboxes.forEach(checkbox => {
@@ -295,7 +304,7 @@ $AllProducts = getAllProduct();
             url: "functions.php", 
             method: 'POST',
             data: {
-                user_id: 1,
+                user_id: user_id,
                 products: selectedProducts,
                 action: "saveorder",
             },

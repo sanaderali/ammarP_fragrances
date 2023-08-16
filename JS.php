@@ -9,6 +9,7 @@ $(document).ready(function() {
         $('#user-password').attr('required','');
         $('#user-image').attr('required','');
         $('#user-id').val('');
+        $('#shop-name').val('');
         $('#btn-saveUser').text('Add User').addClass('btn-primary').removeClass('btn-warning');
 
     });
@@ -27,7 +28,7 @@ $(document).ready(function() {
         var editButton = $(this);
         $('#user-name').val(userData.name);
         $('#user-email').val(userData.email);
-        // $('#user-password').val(userData.password);
+        $('#shop-name').val(userData.shop_name);
         $('#user-id').val(userData.id);
         $('#user-password').removeAttr('required');
         $('#user-image').removeAttr('required');
