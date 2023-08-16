@@ -1,4 +1,7 @@
-<?php include('header.php') ?>
+<?php include('header.php');
+$AllProducts = getAllProduct();
+
+ ?>
 <main>
     <div class="container">
         <div class="row">
@@ -71,7 +74,7 @@
             <!-- Search Start -->
             <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
                 <div class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
-                    <input class="form-control" placeholder="Search">
+                <input id="productSearch" class="form-control" type="text" placeholder="Search by product title">
                     <span class="search-magnifier-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="acorn-icons acorn-icons-search undefined">
                             <circle cx="9" cy="9" r="7"></circle>
@@ -151,7 +154,7 @@
                                             <div class="text-muted text-small cursor-pointer sort" data-sort="email">Quantity</div>
                                         </div>
                                         <div class="col-lg-3 d-flex flex-column pe-1 justify-content-center">
-                                            <div class="text-muted text-small cursor-pointer sort" data-sort="phone">PRICE</div>
+                                            <div class="text-muted text-small cursor-pointer sort" data-sort="phone">Available</div>
                                         </div>
                                         <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
                                             <div class="text-muted text-small cursor-pointer sort" data-sort="group">STATUS</div>
@@ -166,31 +169,34 @@
 
 
                    
-                    
-                    <div class="card mb-2">
+                    <?php
+                        if($AllProducts){
+                        foreach($AllProducts as $key => $val): 
+                        ?>
+                    <div class="card mb-2 product-card">
                         <div class="row g-0 h-100 sh-lg-9 position-relative">
-                            <a href="Products.Detail.html" class="col-auto position-relative">
-                                <img src="img/product/small/600X430.png" alt="product" class="card-img card-img-horizontal sw-11 h-100">
+                            <a  class="col-auto ">
+                                <img src="<?= ($val['productImage']) ? $val['productImage'] :'uploads/defualt_products.png' ?>" alt="product" class="card-img card-img-horizontal sw-11" style="height:72px;">
                             </a>
                             <div class="col py-4 py-lg-0">
                                 <div class="ps-5 pe-4 h-100">
                                     <div class="row g-0 h-100 align-content-center">
-                                        <a href="Products.Detail.html" class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                                            Wood Handle Hunter Knife
-                                            <div class="text-small text-muted text-truncate position">917</div>
+                                        <a  class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
+                                        <span class="product-title"><?= $val['name'] ?? '' ?></span>
                                         </a>
                                         <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                            <div class="lh-1 text-alternate"><input type="number" value="1" min="1" class="w-20"></div>
+                                            <div class="lh-1 text-alternate"><input id="quantatiy_<?php echo $val['id'] ?? '' ?>" type="number" value="1" min="1" class="w-20"></div>
                                         </div>
                                         <div class="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                                            <div class="lh-1 text-alternate">$ 21.75</div>
+                                            <div class="lh-1 text-alternate"><input id="available_<?php echo $val['id'] ?? '' ?>" type="number" value="1" min="1" class="w-20"></div>
                                         </div>
                                         <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                                            <span class="badge bg-outline-quaternary group">LOW STOCK</span>
+                                            <span class="badge bg-outline-quaternary group">Pendding</span>
                                         </div>
                                         <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
                                             <label class="form-check mt-2">
-                                                <input type="checkbox" class="form-check-input pe-none">
+                                                <input type="checkbox" class=" product-checkboxes form-check-input pe-none" data-product='<?= json_encode($val); ?>' >
+                                                <input type="hidden" value="<?php echo $val['id'] ?? '' ?>">
                                             </label>
                                         </div>
                                     </div>
@@ -198,170 +204,116 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 h-100 sh-lg-9 position-relative">
-                            <a href="Products.Detail.html" class="col-auto position-relative">
-                                <img src="img/product/small/product-6.webp" alt="product" class="card-img card-img-horizontal sw-11 h-100">
-                            </a>
-                            <div class="col py-4 py-lg-0">
-                                <div class="ps-5 pe-4 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <a href="Products.Detail.html" class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                                            Wireless On-Ear Headphones
-                                            <div class="text-small text-muted text-truncate position">#5622</div>
-                                        </a>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                            <div class="lh-1 text-alternate">592</div>
-                                        </div>
-                                        <div class="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                                            <div class="lh-1 text-alternate">$ 52.50</div>
-                                        </div>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5"></div>
-                                        <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
-                                            <label class="form-check mt-2">
-                                                <input type="checkbox" class="form-check-input pe-none">
-                                            </label>
+                    <?php
+                            endforeach;
+                        }
+                        else {
+                        ?>
+                         <div  class="card mb-2 " data-title="Product Card" data-intro="Here is a product card with buttons!" data-step="2">
+                            <div class="row g-0 sh-12">
+                                <div class="col">
+                                    <div class="card-body pt-0 pb-0 h-100">
+                                        <div class="row g-0 h-100 align-content-center">
+                                            <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
+                                                No Procut Available Yet !
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 h-100 sh-lg-9 position-relative">
-                            <a href="Products.Detail.html" class="col-auto position-relative">
-                                <img src="img/product/small/product-7.webp" alt="product" class="card-img card-img-horizontal sw-11 h-100">
-                            </a>
-                            <div class="col py-4 py-lg-0">
-                                <div class="ps-5 pe-4 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <a href="Products.Detail.html" class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                                            White Coffee Mug
-                                            <div class="text-small text-muted text-truncate position">#3457</div>
-                                        </a>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                            <div class="lh-1 text-alternate">2.849</div>
-                                        </div>
-                                        <div class="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                                            <div class="lh-1 text-alternate">$ 14.10</div>
-                                        </div>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5"></div>
-                                        <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
-                                            <label class="form-check mt-2">
-                                                <input type="checkbox" class="form-check-input pe-none">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 h-100 sh-lg-9 position-relative">
-                            <a href="Products.Detail.html" class="col-auto position-relative">
-                                <img src="img/product/small/product-8.webp" alt="product" class="card-img card-img-horizontal sw-11 h-100">
-                            </a>
-                            <div class="col py-4 py-lg-0">
-                                <div class="ps-5 pe-4 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <a href="Products.Detail.html" class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                                            Geometric Chandelier
-                                            <div class="text-small text-muted text-truncate position">#4832</div>
-                                        </a>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                            <div class="lh-1 text-alternate">902</div>
-                                        </div>
-                                        <div class="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                                            <div class="lh-1 text-alternate">$ 32.60</div>
-                                        </div>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                                            <span class="badge bg-outline-secondary group">NEW</span>
-                                        </div>
-                                        <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
-                                            <label class="form-check mt-2">
-                                                <input type="checkbox" class="form-check-input pe-none">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 h-100 sh-lg-9 position-relative">
-                            <a href="Products.Detail.html" class="col-auto position-relative">
-                                <img src="img/product/small/product-9.webp" alt="product" class="card-img card-img-horizontal sw-11 h-100">
-                            </a>
-                            <div class="col py-4 py-lg-0">
-                                <div class="ps-5 pe-4 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <a href="Products.Detail.html" class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                                            XBox Controller
-                                            <div class="text-small text-muted text-truncate position">#2611</div>
-                                        </a>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                            <div class="lh-1 text-alternate">614</div>
-                                        </div>
-                                        <div class="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                                            <div class="lh-1 text-alternate">$ 19.15</div>
-                                        </div>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                                            <span class="badge bg-outline-secondary group">NEW</span>
-                                        </div>
-                                        <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
-                                            <label class="form-check mt-2">
-                                                <input type="checkbox" class="form-check-input pe-none">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 h-100 sh-lg-9 position-relative">
-                            <a href="Products.Detail.html" class="col-auto position-relative">
-                                <img src="img/product/small/product-10.webp" alt="product" class="card-img card-img-horizontal sw-11 h-100">
-                            </a>
-                            <div class="col py-4 py-lg-0">
-                                <div class="ps-5 pe-4 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <a href="Products.Detail.html" class="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                                            Health and Fitness Smartwatch
-                                            <div class="text-small text-muted text-truncate position">#3470</div>
-                                        </a>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                            <div class="lh-1 text-alternate">1.852</div>
-                                        </div>
-                                        <div class="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                                            <div class="lh-1 text-alternate">$ 68.00</div>
-                                        </div>
-                                        <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5"></div>
-                                        <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
-                                            <label class="form-check mt-2">
-                                                <input type="checkbox" class="form-check-input pe-none">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <?php
+                        }
+                        ?>
                     <!-- Items Container Start -->
 
                     <!-- List Items End -->
                 </div>
             </div>
+            <?php if($AllProducts): ?>
             <!-- Items Pagination Start -->
             <div class="w-100 d-flex justify-content-center">
-            <input class="btn btn-primary mb-1" type="submit" value="Order Now">
+            <input id="orderButton" class="btn btn-primary mb-1" type="submit" onclick="submitOrder()" value="Order Now">
             </div>
             <!-- Items Pagination End -->
+            <?php endif; ?>
         </div>
 
     </div>
 
 </main>
+<script>
+ const searchInput = document.getElementById('productSearch');
+    const productCards = document.querySelectorAll('.product-card');
 
+    searchInput.addEventListener('input', function () {
+        const searchText = searchInput.value.trim().toLowerCase();
+
+        productCards.forEach(card => {
+            const title = card.querySelector('.product-title').textContent.toLowerCase();
+
+            if (title.includes(searchText)) {
+                card.style.display = 'block'; // Show matching cards
+            } else {
+                card.style.display = 'none'; // Hide non-matching cards
+            }
+        });
+    });
+
+
+
+  function submitOrder() {
+
+    const selectedProducts = [];
+    const checkboxes = document.querySelectorAll('.product-checkboxes');
+    
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            let productData = JSON.parse(checkbox.getAttribute("data-product"));
+
+            const pro_id = productData.id; 
+            const productName = productData.name; 
+            const quantity_req = $('#quantatiy_' + pro_id).val(); 
+            const avialable_Stock = $('#available_' + pro_id).val(); 
+            
+            selectedProducts.push({
+                pro_id: pro_id,
+                name: productName,
+                quantity: quantity_req,
+                avialable: avialable_Stock
+            });
+        }
+    });
+
+    if (selectedProducts.length === 0) {
+        alert("Please select at least one product.");
+        return; 
+    }else{
+        $('#orderButton').text('saving');
+        $('#orderButton').attr('disabled',true);
+        $.ajax({
+            url: "functions.php", 
+            method: 'POST',
+            data: {
+                user_id: 1,
+                products: selectedProducts,
+                action: "saveorder",
+            },
+            success: function(response) {
+                $('#orderButton').text('Order Now');
+                $('#orderButton').attr('disabled',false);
+                alert(response);
+            },
+            error: function(xhr, status, error) {
+                alert('please contact to the developer');
+                $('#orderButton').text('Order Now');
+                $('#orderButton').attr('disabled',false);
+            }
+        });
+    }
+
+}
+
+</script>
 
 <?php include('footer.php') ?>
