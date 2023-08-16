@@ -226,7 +226,7 @@
               <!-- Today's Orders End -->
 
               <!-- Categories Start -->
-              <h2 class="small-title">Categories</h2>
+              <!-- <h2 class="small-title">Categories</h2>
               <div class="card mb-5 h-auto sh-lg-23">
                 <div class="card-body h-100">
                   <div class="row g-0 h-100">
@@ -244,7 +244,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- Categories End -->
             </div>
           </div>
