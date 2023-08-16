@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('connection.php');
 function dd($value){
     echo "<pre>";
@@ -60,8 +61,6 @@ function deleteProduct($db, $productId) {
         return "failure";
     }
 }
-
-
 
 function deleteUser($db, $userId) {
     $query = "UPDATE users SET status = 2 WHERE id = $userId";
@@ -182,13 +181,28 @@ function getAllUsers() {
 
 function getAllOrders() {
     global $db; 
+    if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
+        $user_Id = $_SESSION['user']['id'];
+        if ($_SESSION['user_role'] == 'admin') {
 
-    $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
+            $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
               p.name as product_name, od.quantity, od.avialable
               FROM orders as o
               join users as u on o.user_id = u.id
               join order_details as od on o.id = od.order_id
               join products as p on od.product_id = p.id";
+
+        }else{
+            $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
+            p.name as product_name, od.quantity, od.avialable
+            FROM orders as o
+            JOIN users as u ON o.user_id = u.id
+            JOIN order_details as od ON o.id = od.order_id
+            JOIN products as p ON od.product_id = p.id
+            WHERE u.id = '$user_Id'";
+        }
+             
+    }
     
     $result = mysqli_query($db, $query);
     $orders = array();

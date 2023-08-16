@@ -22,7 +22,7 @@ $AllUsers = getAllUsers();
         <div class="row">
             <div class="col-12">
                 <div class="page-title-container">
-                    <h1 class="mb-0 pb-0 display-4" id="title">Products listing</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Users listing</h1>
                     <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
                         <ul class="breadcrumb pt-0">
                             <li class="breadcrumb-item"><a href="Dashboards.Default.html">Users</a></li>
