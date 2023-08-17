@@ -1,5 +1,5 @@
-<?php ;
-
+<?php 
+include('connection.php');
 session_start();
 $errors = NULL;
 
