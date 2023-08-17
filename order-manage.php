@@ -137,7 +137,7 @@ foreach($orders as $key => $val):
               <th scope="col">#</th>
               <th scope="col">Product Name</th>
               <th scope="col">Available</th>
-              <th scope="col">Quantity</th>
+              <th scope="col">Order</th>
             </tr>
           </thead>
           <tbody>
