@@ -28,8 +28,8 @@ $orders = getAllOrders();
             if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
               if ($_SESSION['user_role'] == 'admin') {
                 ?>
-                 <a href="products.php">           
                   <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="products.php">           
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
                         <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
@@ -39,10 +39,11 @@ $orders = getAllOrders();
                         <div class="text-small text-primary"><?= totalStats($db,'products') ?? 0 ?> Products</div>
                       </div>
                     </div>
+                  </a>
                   </div>
-              </a>
-                <a href="users.php">
+                
                   <div class="col-12 col-sm-6 col-lg-3">
+                  <a href="users.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
                         <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
@@ -52,12 +53,14 @@ $orders = getAllOrders();
                         <div class="text-small text-primary"><?= totalStats($db,'users') ?? 0 ?> USERS</div>
                       </div>
                     </div>
+                    </a>
                   </div>
-              </a>
+              
                   <?php }
                   } ?>
-                  <a href="order-manage.php">
+                  
                   <div class="col-12 col-sm-6 col-lg-3">
+                  <a href="order-manage.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
                         <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
@@ -67,8 +70,9 @@ $orders = getAllOrders();
                         <div class="text-small text-primary"><?= totalStats($db,'orders') ?? 0 ?>  ORDERS</div>
                       </div>
                     </div>
+                    </a>
                   </div>
-                </a>
+                
                   <div class="col-12 col-sm-6 col-lg-3">
                     <a href="products.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
