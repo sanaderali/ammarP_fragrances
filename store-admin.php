@@ -28,7 +28,7 @@ $orders = getAllOrders();
             if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
               if ($_SESSION['user_role'] == 'admin') {
                 ?>
-                            
+                 <a href="products.php">           
                   <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
@@ -40,6 +40,8 @@ $orders = getAllOrders();
                       </div>
                     </div>
                   </div>
+              </a>
+                <a href="users.php">
                   <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
@@ -51,8 +53,10 @@ $orders = getAllOrders();
                       </div>
                     </div>
                   </div>
+              </a>
                   <?php }
                   } ?>
+                  <a href="order-manage.php">
                   <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
@@ -64,7 +68,7 @@ $orders = getAllOrders();
                       </div>
                     </div>
                   </div>
-
+                </a>
                   <div class="col-12 col-sm-6 col-lg-3">
                     <a href="products.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
