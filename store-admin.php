@@ -119,7 +119,7 @@ $orders = getAllOrders();
                         <div class="card-body pt-0 pb-0 h-100">
                           <div class="row g-0 h-100 align-content-center">
                             <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Pages.Portfolio.Detail.html"><?= $val['shop_name'] ?? '' ?></a>
+                              <a ><?= $val['shop_name'] ?? '' ?></a>
                             </div>
                             <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium"><?= $val['user_name'] ?? '' ?></div>
                             <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium"><?= date("d F Y", strtotime($val['order_date'])); ?></div>
