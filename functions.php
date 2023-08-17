@@ -185,7 +185,7 @@ function getAllOrders() {
         $user_Id = $_SESSION['user']['id'];
         if ($_SESSION['user_role'] == 'admin') {
 
-            $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
+            $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name, u.userImage as user_Image,
               p.name as product_name, od.quantity, od.avialable
               FROM orders as o
               join users as u on o.user_id = u.id
@@ -194,7 +194,7 @@ function getAllOrders() {
               ORDER BY o.id DESC";
 
         }else{
-            $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
+            $query = "SELECT o.id, o.order_date, o.status, u.userImage as userImage, u.name as user_name, u.shop_name,
             p.name as product_name, od.quantity, od.avialable
             FROM orders as o
             JOIN users as u ON o.user_id = u.id
@@ -218,6 +218,7 @@ function getAllOrders() {
                     'order_id' => $row['id'],
                     'order_date' => $row['order_date'],
                     'status' => $row['status'],
+                    'user_Image' => $row['user_Image'],
                     'user_name' => $row['user_name'],
                     'shop_name' => $row['shop_name'],
                     'product_details' => array()
