@@ -85,16 +85,17 @@ $orders = getAllOrders();
               <!-- Products Start -->
               <div class="d-flex justify-content-between">
                 <h2 class="small-title">Top Orders</h2>
-                <button class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small" type="button">
+                <a href ="order-manage.php" class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small" type="button">
                   <span class="align-bottom">View All</span>
                   <i data-acorn-icon="chevron-right" class="align-middle" data-acorn-size="12"></i>
-                </button>
+                </a>
               </div>
               <div class="scroll-out mb-5">
                 <div class="scroll-by-count mb-n2" data-count="5">
 
               <?php 
               $index =1;
+              if($orders){
                foreach($orders as $key => $val):
               ?>
                   <div class="card mb-2">
@@ -122,14 +123,29 @@ $orders = getAllOrders();
           if($index == 5){
             break;
           }
-          endforeach; ?>
+          endforeach;
+         }else{ ?>
+                                     <div   class="card mb-2 " data-title="Product Card" data-intro="Here is a product card with buttons!" data-step="2">
+                            <div class="row g-0 sh-12">
+                                <div class="col">
+                                    <div class="card-body pt-0 pb-0 h-100">
+                                        <div class="row g-0 h-100 align-content-center">
+                                            <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
+                                                No Order Available Yet !
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+          <?php } ?>              
                 </div>
               </div>
               <!-- Products End -->
             </div>
             <div class="col-12 col-lg-4">
               <!-- Today's Orders Start -->
-              <h2 class="small-title">Today's Orders</h2>
+              <h2 class="small-title">Orders Stat's</h2>
               <div class="card w-100 sh-50 mb-5">
                 <img src="img/banner/cta-square-4.webp" class="card-img h-100" alt="card image" />
                 <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
@@ -147,8 +163,8 @@ $orders = getAllOrders();
                       <div class="lh-1-25 mb-0">Canceled Orders</div>
                     </div>
                     <div>
-                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Shipped') ?? 0 ?> </div>
-                      <div class="lh-1-25 mb-0">Shipped Orders</div>
+                      <!-- <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Shipped') ?? 0 ?> </div> -->
+                      <!-- <div class="lh-1-25 mb-0">Shipped Orders</div> -->
                     </div>
                   </div>
                 </div>

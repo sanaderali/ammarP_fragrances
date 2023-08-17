@@ -144,7 +144,9 @@ $AllProducts = getAllProduct();
             </div>
         </div>
         <!-- Controls End -->
-
+        <div id="order-statusplaced" class=" d-none  col-8 mx-auto text-center text-success text-uppercase bg-tertiary mb-2 p-2">
+       *  Order Status Submited Successfully 
+        </div>
         <div class="row g-0">
             <div class="col-12 mb-5">
                 <!-- List Items Start -->
@@ -199,7 +201,7 @@ $AllProducts = getAllProduct();
                                             <div class="lh-1 text-alternate"><input id="available_<?php echo $val['id'] ?? '' ?>" type="number" value="1" min="1" class="w-20"></div>
                                         </div>
                                         <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                                            <span class="badge bg-outline-quaternary group">Pendding</span>
+                                            <span class="badge bg-outline-quaternary group">Active</span>
                                         </div>
                                         <div class="col-1 d-flex flex-column mb-2 mb-lg-0 align-items-end order-2 order-lg-last justify-content-lg-center">
                                             <label class="form-check mt-2">
@@ -311,7 +313,11 @@ $AllProducts = getAllProduct();
             success: function(response) {
                 $('#orderButton').text('Order Now');
                 $('#orderButton').attr('disabled',false);
-                alert(response);
+                $('#order-statusplaced').removeClass('d-none');
+                setTimeout(function() {
+                      window.location.href = "order-manage.php";
+                  }, 1500); 
+                // alert(response);
             },
             error: function(xhr, status, error) {
                 alert('please contact to the developer');
