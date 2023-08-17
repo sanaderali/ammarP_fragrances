@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <?php if($success) : 
         ?>
       <div id="order-statusChange" class=" col-8 mx-auto text-center text-success text-uppercase bg-tertiary mb-2 p-2">
-       *  Oder Status chanages Successfully 
+       *  Order Status chanages Successfully 
       </div>
       <?php endif; ?>
     </div>
@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 }
 $index =0;
+if($orders){
 foreach($orders as $key => $val):
   ?>
       <div class="card mb-5">
@@ -159,6 +160,23 @@ foreach($orders as $key => $val):
       <?php 
       $index++;  
       endforeach;
+    }else{ ?>
+                            <div   class="card mb-2 " data-title="Product Card" data-intro="Here is a product card with buttons!" data-step="2">
+                            <div class="row g-0 sh-12">
+                                <div class="col">
+                                    <div class="card-body pt-0 pb-0 h-100">
+                                        <div class="row g-0 h-100 align-content-center">
+                                            <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
+                                                No Order Available Yet !
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+  <?php 
+   }
   ?>
 
     </div>

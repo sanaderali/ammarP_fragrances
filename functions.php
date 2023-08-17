@@ -190,7 +190,8 @@ function getAllOrders() {
               FROM orders as o
               join users as u on o.user_id = u.id
               join order_details as od on o.id = od.order_id
-              join products as p on od.product_id = p.id";
+              join products as p on od.product_id = p.id
+              ORDER BY o.id DESC";
 
         }else{
             $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name,
@@ -199,7 +200,8 @@ function getAllOrders() {
             JOIN users as u ON o.user_id = u.id
             JOIN order_details as od ON o.id = od.order_id
             JOIN products as p ON od.product_id = p.id
-            WHERE u.id = '$user_Id'";
+            WHERE u.id = '$user_Id'
+            ORDER BY o.id DESC";
         }
              
     }
