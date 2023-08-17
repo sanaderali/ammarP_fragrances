@@ -7,7 +7,7 @@ $orders = getAllOrders();
           <div class="row">
             <div class="col-12">
               <div class="page-title-container">
-                <h1 class="mb-0 pb-0 display-4" id="title">Visual Dashboard</h1>
+                <h1 class="mb-0 pb-0 display-4" id="title">Super Admin Dashboard</h1>
                 <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
                   <ul class="breadcrumb pt-0">
                     <li class="breadcrumb-item"><a href="Dashboards.Default.html">Home</a></li>
@@ -65,7 +65,8 @@ $orders = getAllOrders();
                     </div>
                   </div>
 
-                  <!-- <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="products.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
                         <div class="sh-5 sw-5 border border-dashed rounded-xl mx-auto">
@@ -73,11 +74,12 @@ $orders = getAllOrders();
                             <i data-acorn-icon="plus" class="text-white"></i>
                           </div>
                         </div>
-                        <div class="heading text-center text-muted mb-0 d-flex align-items-center lh-1">Add New</div>
+                        <div class="heading text-center text-muted mb-0 d-flex align-items-center lh-1">Add New Product</div>
                         <div class="text-small text-primary">&nbsp;</div>
                       </div>
                     </div>
-                  </div> -->
+                    </a>
+                  </div>
                 </div>
               </div>
               <!-- Inventory End -->
