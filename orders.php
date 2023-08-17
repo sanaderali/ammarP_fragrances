@@ -161,7 +161,7 @@ $AllProducts = getAllProduct();
                                             <div class="text-muted text-small cursor-pointer sort" data-sort="name">TITLE</div>
                                         </div>
                                         <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
-                                            <div class="text-muted text-small cursor-pointer sort" data-sort="email">Quantity</div>
+                                            <div class="text-muted text-small cursor-pointer sort" data-sort="email">Order</div>
                                         </div>
                                         <div class="col-lg-3 d-flex flex-column pe-1 justify-content-center">
                                             <div class="text-muted text-small cursor-pointer sort" data-sort="phone">Available</div>
