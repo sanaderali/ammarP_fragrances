@@ -84,7 +84,7 @@ foreach($orders as $key => $val):
             <p class="mb-0 text-alternate"><b>Shop Manger</b><br><?= $val['user_name'] ?? '' ?></p>
           </div>
           <div class="col-lg-2 d-flex align-items-center mb-1 mb-lg-0">
-            <p class="mb-0 text-alternate"><b>Oder Date</b><br><?= date("d F Y", strtotime($val['order_date'])); ?></p>
+            <p class="mb-0 text-alternate"><b>Oder Date</b><br><?= date("d F Y H:i:s", strtotime($val['order_date'])); ?></p>
           </div>
           <div class="col-lg-2 d-flex align-items-center mb-3 mb-lg-0">
             <span class="badge bg-tertiary text-uppercase"><?= ($val['status'] == 'Pending') ? 'New' : (($val['status'] == 'Completed') ? 'Completed' : 'Canceled') ?></span>
