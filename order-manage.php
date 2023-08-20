@@ -402,9 +402,6 @@ function generateOrderInfo(cardSelector) {
   ];
 }
 
-// Rest of the code for generating the table remains unchanged
-
-
 function generateTableData(tableSelector) {
   const headers = [];
   const rows = [];
