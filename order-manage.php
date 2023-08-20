@@ -306,7 +306,8 @@ $(document).ready(function() {
                           $('#order-statusChange').fadeIn().delay(1500).fadeOut();
                       }, 100);
 
-                      $('#order-status_' + order_id).addClass('d-none');
+                      $('#order-completed_' + order_id).addClass('d-none');
+                      $('#order-cancel_' + order_id).addClass('d-none');
                       $('#order-undu_' + order_id).removeClass('d-none');
                       $('#order-text_' + order_id).text(order_status);
 
@@ -317,7 +318,8 @@ $(document).ready(function() {
                       setTimeout(() => {
                           $('#order-statusChange').fadeIn().delay(1500).fadeOut();
                       }, 100);
-                      $('#order-status_' + order_id).removeClass('d-none');
+                      $('#order-completed_' + order_id).removeClass('d-none');
+                      $('#order-cancel_' + order_id).removeClass('d-none');
                       $('#order-undu_' + order_id).addClass('d-none');
                       $('#order-text_' + order_id).text(order_status);
 
@@ -336,25 +338,6 @@ $(document).ready(function() {
 
 </script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.debug.js"></script> -->
-<!-- <script>
-  $(document).ready(function () {
-
-    $('.download-pdf').click(function () {
-      
-      const ord_id = $(this).data('order_id');
-      const pdf = new jsPDF();
-
-      const card = document.querySelector(`#order-card_${ord_id}`);
-      const table = document.querySelector(`#oder_products_${ord_id} table`);
-
-      pdf.fromHTML(card, 15, 15, { width: 180 });
-      pdf.fromHTML(table, 15, 50, { width: 180 });
-
-      pdf.save(`order_${ord_id}.pdf`);
-    });
-  });
-</script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
 
