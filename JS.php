@@ -43,9 +43,11 @@ $(document).ready(function() {
 
     $(".edit-product").on("click", function() {
         var productData = JSON.parse($(this).attr("data-product"));
+        console.log(productData);
         var editButton = $(this);
         $('#product-name').val(productData.name);
         $('#product-id').val(productData.id);
+        $('#select-category').val(productData.category_id);
         $('#product-image').removeAttr('required');
         if(productData.productImage){
             $('#product-image-preview').attr('src',productData.productImage);
@@ -120,6 +122,46 @@ $(document).ready(function() {
         });
     });
 
+    // categories functionalities edit ... delete...
+    $(".edit-category").on("click", function() {
+        var productData = JSON.parse($(this).attr("data-product"));
+        var editButton = $(this);
+        $('#category-name').val(productData.name);
+        $('#category-id').val(productData.id);
+        $('#btn-saveCategory').text('Update Catgory').addClass('btn-warning').removeClass('btn-primary');
+    });
+
+    $(".delete-Category").on("click", function() {
+        var categoryId = $(this).attr("data-id");
+        var deleteButton = $(this); 
+        $.ajax({
+            type: "POST",
+            url: "functions.php", 
+            data: { action: "deleteCategory", categoryId: categoryId},
+            success: function(response) {
+                if (response.trim() === "success") { 
+                    var card = deleteButton.closest(".card");
+                    card.slideUp("slow", function() {
+                        card.remove(); 
+                    });
+                } 
+               else if (response.trim() === "no-category") { 
+                    var card = deleteButton.closest(".card");
+                    card.slideUp("slow", function() {
+                        card.remove(); 
+                    });
+                    $('#last_categoryCard').removeClass('d-none');
+                } 
+                else {
+                    alert("Failed to delete Category.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                alert("An error occurred. Please try again later.");
+            }
+        });
+    });
     
 });
 

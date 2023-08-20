@@ -2,31 +2,20 @@
 include('header.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $imagePath = '';
-    if (isset($_FILES["productImage"])) {
-        $targetDirectory = "uploads/";
-        $targetFile = $targetDirectory . basename($_FILES["productImage"]["name"]);
-        if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFile)) {
-            $imagePath = $targetFile;
-        }
-    }
-    $response = storeProduct($db, $_POST, $imagePath);
+    $response = storeCategory($db, $_POST);
 }
 
-$AllProducts = getAllProduct();
-
 $AllCategories = getAllCategoris();
-
 ?>
 <main>
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="page-title-container">
-                    <h1 class="mb-0 pb-0 display-4" id="title">Products listing</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Categories listing</h1>
                     <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
                         <ul class="breadcrumb pt-0">
-                            <li class="breadcrumb-item"><a href="Dashboards.Default.html">Products</a></li>
+                            <li class="breadcrumb-item"><a href="Dashboards.Default.html">Category</a></li>
                             <li class="breadcrumb-item"><a href="Dashboards.html">Management</a></li>
                         </ul>
                     </nav>
@@ -34,35 +23,9 @@ $AllCategories = getAllCategoris();
             </div>
         </div>
 
-        <!-- Products Start -->
+        <!-- Category Start -->
         <div class="row py-5">
             <div class="col-12 col-xl-12 mb-5 ">
-
-                <!-- Search Start -->
-                <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
-                    <div
-                        class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
-                        <input id="productSearch" class="form-control" type="text"
-                            placeholder="Search by product title">
-                        <span class="search-magnifier-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="acorn-icons acorn-icons-search undefined">
-                                <circle cx="9" cy="9" r="7"></circle>
-                                <path d="M14 14L17.5 17.5"></path>
-                            </svg>
-                        </span>
-                        <span class="search-delete-icon d-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="acorn-icons acorn-icons-close undefined">
-                                <path d="M5 5 15 15M15 5 5 15"></path>
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-                <!-- Search End -->
-
                 <div class="d-flex justify-content-end">
                     <!-- <h2 class="small-title">Products</h2> -->
                     <button class="btn btn-info  mb-3 " type="button" data-bs-toggle="modal"
@@ -72,7 +35,7 @@ $AllCategories = getAllCategoris();
                             class="acorn-icons acorn-icons-plus undefined">
                             <path d="M10 17 10 3M3 10 17 10"></path>
                         </svg>
-                        Add Products
+                        Add Category
                     </button>
 
                 </div>
@@ -80,39 +43,33 @@ $AllCategories = getAllCategoris();
                 <div class="scroll-div">
                     <div>
                         <?php
-                        if ($AllProducts) {
-                            foreach ($AllProducts as $key => $val):
+                        if ($AllCategories) {
+                            foreach ($AllCategories as $key => $val):
                                 ?>
                                 <div class="card mb-2" data-title="Product Card"
                                     data-intro="Here is a product card with buttons!" data-step="2">
                                     <div class="row g-0 sh-12">
-                                        <div class="col-auto">
-                                            <a>
-                                                <img src="<?= ($val['productImage']) ? $val['productImage'] : 'uploads/defualt_products.png' ?>"
-                                                    alt="product image " class="card-img card-img-horizontal sw-13 sw-lg-15"
-                                                    style="max-height: 96px; width: 100px" />
-                                            </a>
-                                        </div>
                                         <div class="col">
                                             <div class="card-body pt-0 pb-0 h-100">
                                                 <div class="row g-0 h-100 align-content-center">
                                                     <div
-                                                        class="col-12 col-md-7 d-flex flex-column mb-2 mb-md-0 position-static">
-                                                        <a>
+                                                        class="col-12 col-md-7 d-flex flex-column mb-2 ml-5 mb-md-0 position-static">
+                                                        <span class="font-weight-bold"> Category Title: </span>
+                                                        <a class="">
                                                             <?php echo $val['name'] ?? '' ?>
                                                         </a>
                                                     </div>
                                                     <div
                                                         class="col-12 col-md-5 d-flex align-items-center justify-content-md-end">
                                                         <button data-product='<?= json_encode($val); ?>'
-                                                            class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1 edit-product"
+                                                            class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1 edit-category"
                                                             type="button" data-bs-toggle="modal"
                                                             data-bs-target="#closeButtonOutExample">
                                                             <i data-acorn-icon="edit-square" data-acorn-size="15"></i>
                                                             <span class="d-none d-xxl-inline-block">Edit</span>
                                                         </button>
                                                         <button data-id="<?php echo $val['id'] ?? '' ?>"
-                                                            class="btn btn-sm btn-icon btn-icon-start btn-outline-primary delete-product ms-1"
+                                                            class="btn btn-sm btn-icon btn-icon-start btn-outline-primary delete-Category ms-1"
                                                             type="button">
                                                             <i data-acorn-icon="bin" data-acorn-size="15"></i>
                                                             <span class="d-none d-xxl-inline-block">Delete</span>
@@ -127,15 +84,15 @@ $AllCategories = getAllCategoris();
                             endforeach;
                         } else {
                             ?>
-                            <div class="card mb-2 " data-title="Product Card"
-                                data-intro="Here is a product card with buttons!" data-step="2">
+                            <div class="card mb-2 " data-title="category  Card"
+                                data-intro="Here is a Category card with buttons!" data-step="2">
                                 <div class="row g-0 sh-12">
                                     <div class="col">
                                         <div class="card-body pt-0 pb-0 h-100">
                                             <div class="row g-0 h-100 align-content-center">
                                                 <div
                                                     class="col-12 col-md-12 d-flex align-items-center justify-content-center">
-                                                    No Procut Available Yet !
+                                                    No Category Available Yet !
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +102,7 @@ $AllCategories = getAllCategoris();
                             <?php
                         }
                         ?>
-                        <div id="last_productCard" class="card mb-2 d-none " data-title="Product Card"
+                        <div id="last_categoryCard" class="card mb-2 d-none " data-title="Category Card"
                             data-intro="Here is a product card with buttons!" data-step="2">
                             <div class="row g-0 sh-12">
                                 <div class="col">
@@ -153,7 +110,7 @@ $AllCategories = getAllCategoris();
                                         <div class="row g-0 h-100 align-content-center">
                                             <div
                                                 class="col-12 col-md-12 d-flex align-items-center justify-content-center">
-                                                No Product Available Yet !
+                                                No Category Available Yet !
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +122,7 @@ $AllCategories = getAllCategoris();
 
             </div>
         </div>
-        <!-- Products End -->
+        <!-- Category End -->
     </div>
 
 
@@ -175,24 +132,16 @@ $AllCategories = getAllCategoris();
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabelCloseOut">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabelCloseOut">Add Categories</h5>
                     <button type="button" class="btn-close product-close-form" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="sw-lg-50 px-5">
-                        <form id="product-details" action="products.php" method="POST" class="tooltip-end-bottom"
+                        <form id="category-details" action="category.php" method="POST" class="tooltip-end-bottom"
                             enctype="multipart/form-data">
                             <div>
-                                <div class="mb-3 tooltip-end-top">
-                                    <div class="d-flex justify-content-center align-items-center mb-2 ">
-                                        <img id="product-image-preview" src="uploads/defualt_products.png"
-                                            alt="User Image" class="rounded-circle" style="height: 100px; width:100px">
-                                    </div>
-                                    <input id="product-image" required="" class="form-control" type="file"
-                                        name="productImage" onchange="previewImage(this)">
-                                    <input id="product-id" type="hidden" name="id">
-                                </div>
+                                <input id="category-id" type="hidden" name="id">
 
                                 <div class="mb-3 filled form-group tooltip-end-top">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -205,30 +154,16 @@ $AllCategories = getAllCategoris();
                                             d="M11 15H10 9M13 6V5C13 3.34315 11.6569 2 10 2V2C8.34315 2 7 3.34315 7 5V10">
                                         </path>
                                     </svg>
-                                    <input id="product-name" required="" class="form-control" placeholder="Name"
+                                    <input id="category-name" required="" class="form-control" placeholder="Name"
                                         name="name">
                                 </div>
-                                <div class="mb-3 filled form-group tooltip-end-top">
-                                    <select id="select-category" style="border-color: black;" required=""
-                                        class=" form-control" name="category_id">
-                                        <option value=""> -- Select Category --</option>
-                                        <?php foreach ($AllCategories as $key => $val):
-                                            ?>
-                                            <option value="<?= $val['id'] ?>">
-                                                <?= $val['name'] ?>
-                                            </option>
-                                            <?php
-                                        endforeach;
-                                        ?>
-                                    </select>
-                                </div>
-
                             </div>
                             <!-- Add User button with type="submit" -->
                             <div class="modal-footer">
                                 <button type="button" class="btn product-close-form btn-secondary"
                                     data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="btn-savePoduct" class="btn btn-primary">Add Product</button>
+                                <button type="submit" id="btn-saveCategory" class="btn btn-primary">Add
+                                    Category</button>
                             </div>
                         </form>
                     </div>
@@ -240,21 +175,21 @@ $AllCategories = getAllCategoris();
 </main>
 
 <script>
-    function previewImage(input) {
-        var imagePreview = document.getElementById("product-image-preview");
+//    function previewImage(input) {
+//         var imagePreview = document.getElementById("product-image-preview");
 
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+//         if (input.files && input.files[0]) {
+//             var reader = new FileReader();
 
-            reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-            };
+//             reader.onload = function (e) {
+//                 imagePreview.src = e.target.result;
+//             };
 
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            imagePreview.src = ""; // Clear the preview if no file selected
-        }
-    }
+//             reader.readAsDataURL(input.files[0]);
+//         } else {
+//             imagePreview.src = ""; // Clear the preview if no file selected
+//         }
+//     }
 
 
 </script>

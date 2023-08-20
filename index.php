@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('connection.php');
 session_start();
 $errors = NULL;
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
       }
     } else {
-      $errors =  "Invalid email or password.";
+      $errors = "Invalid email or password.";
     }
   }
   //else {
@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="css/main.css" />
   <script src="js/base/loader.js"></script>
   <style>
-    .my-logo img{
+    .my-logo img {
       width: 200px;
       /* min-height: 35px; */
       object-position: left;
@@ -126,7 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   Welcome to Ammar's Fragrances Inventory management software, please use the logins provied
                 </p>
                 <div class="mb-5">
-                  <a class="btn btn-lg btn-outline-white" href="https://techsolutionspro.co.uk/contact-us/" target="b">Contact Us</a>
+                  <a class="btn btn-lg btn-outline-white" href="https://techsolutionspro.co.uk/contact-us/"
+                    target="b">Contact Us</a>
                 </div>
               </div>
             </div>
@@ -136,7 +137,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Right Side Start -->
         <div class="col-12 col-lg-auto h-100 pb-4 px-4 pt-0 p-lg-0">
-          <div class="sw-lg-70 min-h-100 bg-foreground d-flex justify-content-center align-items-center shadow-deep py-5 full-page-content-right-border">
+          <div
+            class="sw-lg-70 min-h-100 bg-foreground d-flex justify-content-center align-items-center shadow-deep py-5 full-page-content-right-border">
             <div class="sw-lg-50 px-5">
               <div class="sh-11">
                 <a href="index.html">
@@ -160,19 +162,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="index.php" method="post" class="tooltip-end-bottom" novalidate>
                   <div class="mb-3 filled form-group tooltip-end-top">
                     <i data-acorn-icon="email"></i>
-                    <input id="email" type="email" required="" class="form-control" placeholder="Email" name="email" value="<?= $_POST["email"] ?? '' ?>" />
+                    <input id="email" type="email" required="" class="form-control" placeholder="Email" name="email"
+                      value="<?= $_POST["email"] ?? '' ?>" />
                   </div>
                   <div class="mb-3 filled form-group tooltip-end-top">
                     <i data-acorn-icon="lock-off"></i>
-                    <input class="form-control pe-7" required="" name="password" id="password" type="password" placeholder="Password" />
-                    <a class="text-small position-absolute t-3 e-3" href="Pages.Authentication.ForgotPassword.html">Forgot?</a>
+                    <input class="form-control pe-7" required="" name="password" id="password" type="password"
+                      placeholder="Password" />
+                    <a class="text-small position-absolute t-3 e-3"
+                      href="Pages.Authentication.ForgotPassword.html">Forgot?</a>
                   </div>
                   <div class="mb-3 filled form-group tooltip-end-top">
-                    <?php if ($errors) : ?>
-                      <span class="text-danger "> * <?= $errors ?></span>
-                  </div>
-                <?php endif; ?>
-                <button type="submit" class="btn btn-lg btn-primary">Login</button>
+                    <?php if ($errors): ?>
+                      <span class="text-danger "> *
+                        <?= $errors ?>
+                      </span>
+                    </div>
+                  <?php endif; ?>
+                  <button type="submit" class="btn btn-lg btn-primary">Login</button>
                 </form>
               </div>
             </div>

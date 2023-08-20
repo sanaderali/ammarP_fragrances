@@ -1,213 +1,240 @@
-<?php 
+<?php
 include('header.php');
 $orders = getAllOrders();
 ?>
-      <main>
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="page-title-container">
-                <h1 class="mb-0 pb-0 display-4" id="title">Super Admin Dashboard</h1>
-                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
-                  <ul class="breadcrumb pt-0">
-                    <li class="breadcrumb-item"><a href="Dashboards.Default.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="Dashboards.html">Dashboards</a></li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          </div>
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-container">
+          <h1 class="mb-0 pb-0 display-4" id="title">Super Admin Dashboard</h1>
+          <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+            <ul class="breadcrumb pt-0">
+              <li class="breadcrumb-item"><a href="Dashboards.Default.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="Dashboards.html">Dashboards</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
 
-          <div class="row">
-            <div class="col-12 col-lg-8">
-              <!-- Inventory Start -->
-              <h2 class="small-title">Inventory</h2>
-              <div class="mb-5">
-                <div class="row g-2">
-                <?php
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <!-- Inventory Start -->
+        <h2 class="small-title">Inventory</h2>
+        <div class="mb-5">
+          <div class="row g-2">
+            <?php
             if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
               if ($_SESSION['user_role'] == 'admin') {
                 ?>
-                  <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="products.php">           
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <a href="products.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
-                        <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
+                        <div
+                          class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
                           <i data-acorn-icon="radish" class="text-white"></i>
                         </div>
                         <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Products</div>
-                        <div class="text-small text-primary"><?= totalStats($db,'products') ?? 0 ?> Products</div>
+                        <div class="text-small text-primary">
+                          <?= totalStats($db, 'products') ?? 0 ?> Products
+                        </div>
                       </div>
                     </div>
                   </a>
-                  </div>
-                
-                  <div class="col-12 col-sm-6 col-lg-3">
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
                   <a href="users.php">
                     <div class="card hover-scale-up cursor-pointer sh-19">
                       <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
-                        <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
+                        <div
+                          class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
                           <i data-acorn-icon="pepper" class="text-white"></i>
                         </div>
                         <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Users</div>
-                        <div class="text-small text-primary"><?= totalStats($db,'users') ?? 0 ?> USERS</div>
-                      </div>
-                    </div>
-                    </a>
-                  </div>
-              
-                  <?php }
-                  } ?>
-                  
-                  <div class="col-12 col-sm-6 col-lg-3">
-                  <a href="order-manage.php">
-                    <div class="card hover-scale-up cursor-pointer sh-19">
-                      <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
-                        <div class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
-                          <i data-acorn-icon="loaf" class="text-white"></i>
+                        <div class="text-small text-primary">
+                          <?= totalStats($db, 'users') ?? 0 ?> USERS
                         </div>
-                        <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Orders</div>
-                        <div class="text-small text-primary"><?= totalStats($db,'orders') ?? 0 ?>  ORDERS</div>
                       </div>
                     </div>
-                    </a>
-                  </div>
-                
-                  <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="products.php">
-                    <div class="card hover-scale-up cursor-pointer sh-19">
-                      <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
-                        <div class="sh-5 sw-5 border border-dashed rounded-xl mx-auto">
-                          <div class="bg-separator w-100 h-100 rounded-xl d-flex justify-content-center align-items-center mb-2">
-                            <i data-acorn-icon="plus" class="text-white"></i>
-                          </div>
-                        </div>
-                        <div class="heading text-center text-muted mb-0 d-flex align-items-center lh-1">Add New Product</div>
-                        <div class="text-small text-primary">&nbsp;</div>
-                      </div>
+                  </a>
+                </div>
+
+              <?php }
+            } ?>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+              <a href="order-manage.php">
+                <div class="card hover-scale-up cursor-pointer sh-19">
+                  <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
+                    <div
+                      class="bg-gradient-light sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center mb-2">
+                      <i data-acorn-icon="loaf" class="text-white"></i>
                     </div>
-                    </a>
+                    <div class="heading text-center mb-0 d-flex align-items-center lh-1">Total Orders</div>
+                    <div class="text-small text-primary">
+                      <?= totalStats($db, 'orders') ?? 0 ?> ORDERS
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- Inventory End -->
-
-              <!-- Products Start -->
-              <div class="d-flex justify-content-between">
-                <h2 class="small-title">Top Orders</h2>
-                <a href ="order-manage.php" class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small" type="button">
-                  <span class="align-bottom">View All</span>
-                  <i data-acorn-icon="chevron-right" class="align-middle" data-acorn-size="12"></i>
-                </a>
-              </div>
-              <div class="scroll-out mb-5">
-                <div class="scroll-by-count mb-n2" data-count="5">
-
-              <?php 
-              $index =1;
-              if($orders){
-               foreach($orders as $key => $val):
-              ?>
-                  <div class="card mb-2">
-                    <div class="row g-0 sh-14 sh-md-10">
-                      <div class="col-auto h-100">
-                        <a >
-                          <img src="<?= ($val['user_Image']) ? $val['user_Image'] :'uploads/defualt_profile.png' ?>" alt="alternate text" class="card-img card-img-horizontal sw-13 sw-md-12" />
-                        </a>
-                      </div>
-                      <div class="col">
-                        <div class="card-body pt-0 pb-0 h-100">
-                          <div class="row g-0 h-100 align-content-center">
-                            <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                              <a ><?= $val['shop_name'] ?? '' ?></a>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium"><?= $val['user_name'] ?? '' ?></div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium"><?= date("d F Y", strtotime($val['order_date'])); ?></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            <?php
-          $index++;
-          if($index == 5){
-            break;
-          }
-          endforeach;
-         }else{ ?>
-                                     <div   class="card mb-2 " data-title="Product Card" data-intro="Here is a product card with buttons!" data-step="2">
-                            <div class="row g-0 sh-12">
-                                <div class="col">
-                                    <div class="card-body pt-0 pb-0 h-100">
-                                        <div class="row g-0 h-100 align-content-center">
-                                            <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
-                                                No Order Available Yet !
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-          <?php } ?>              
-                </div>
-              </div>
-              <!-- Products End -->
+              </a>
             </div>
-            <div class="col-12 col-lg-4">
-              <!-- Today's Orders Start -->
-              <h2 class="small-title">Orders Stat's</h2>
-              <div class="card w-100 sh-50 mb-5">
-                <img src="img/banner/cta-square-4.webp" class="card-img h-100" alt="card image" />
-                <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
-                  <div class="d-flex flex-column h-100 justify-content-between align-items-start">
-                    <div>
-                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Pending') ?? 0 ?></div>
-                      <div class="lh-1-25 mb-0">Pending Orders</div>
-                    </div>
-                    <div>
-                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Completed') ?? 0 ?></div>
-                      <div class="lh-1-25 mb-0">Completed Orders</div>
-                    </div>
-                    <div>
-                      <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Canceled') ?? 0 ?></div>
-                      <div class="lh-1-25 mb-0">Canceled Orders</div>
-                    </div>
-                    <div>
-                      <!-- <div class="cta-1 text-primary mb-1"><?= ordersManage($db,'orders','Shipped') ?? 0 ?> </div> -->
-                      <!-- <div class="lh-1-25 mb-0">Shipped Orders</div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Today's Orders End -->
 
-              <!-- Categories Start -->
-              <!-- <h2 class="small-title">Categories</h2>
-              <div class="card mb-5 h-auto sh-lg-23">
-                <div class="card-body h-100">
-                  <div class="row g-0 h-100">
-                    <div class="col-12 col-sm-6 h-100 d-flex justify-content-between flex-column">
-                      <a href="#" class="body-link d-flex mb-2">Whole Wheat (2)</a>
-                      <a href="#" class="body-link d-flex mb-2">Brown (6)</a>
-                      <a href="#" class="body-link d-flex mb-2">White (4)</a>
-                      <a href="#" class="body-link d-flex mb-2">Vegetable (2)</a>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <a href="products.php">
+                <div class="card hover-scale-up cursor-pointer sh-19">
+                  <div class="h-100 d-flex flex-column justify-content-between card-body align-items-center">
+                    <div class="sh-5 sw-5 border border-dashed rounded-xl mx-auto">
+                      <div
+                        class="bg-separator w-100 h-100 rounded-xl d-flex justify-content-center align-items-center mb-2">
+                        <i data-acorn-icon="plus" class="text-white"></i>
+                      </div>
                     </div>
-                    <div class="col-12 col-sm-6 h-100 d-flex justify-content-between flex-column">
-                      <a href="#" class="body-link d-flex mb-2">Diet (2)</a>
-                      <a href="#" class="body-link d-flex mb-2">Rye (6)</a>
-                      <a href="#" class="body-link d-flex mb-2">Sourdough (3)</a>
-                      <a href="#" class="body-link d-flex mb-2">Multigrain (4)</a>
+                    <div class="heading text-center text-muted mb-0 d-flex align-items-center lh-1">Add New Product
                     </div>
+                    <div class="text-small text-primary">&nbsp;</div>
                   </div>
                 </div>
-              </div> -->
-              <!-- Categories End -->
+              </a>
             </div>
           </div>
+        </div>
+        <!-- Inventory End -->
 
-          <!-- Banners Start -->
-          <!-- <h2 class="small-title">Extend Your Knowledge</h2> -->
-          <!-- <div class="row g-2 mb-5">
+        <!-- Products Start -->
+        <div class="d-flex justify-content-between">
+          <h2 class="small-title">Top Orders</h2>
+          <a href="order-manage.php" class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small"
+            type="button">
+            <span class="align-bottom">View All</span>
+            <i data-acorn-icon="chevron-right" class="align-middle" data-acorn-size="12"></i>
+          </a>
+        </div>
+        <div class="scroll-out mb-5">
+          <div class="scroll-by-count mb-n2" data-count="5">
+
+            <?php
+            $index = 1;
+            if ($orders) {
+              foreach ($orders as $key => $val):
+                ?>
+                <div class="card mb-2">
+                  <div class="row g-0 sh-14 sh-md-10">
+                    <div class="col-auto h-100">
+                      <a>
+                        <img src="<?= ($val['user_Image']) ? $val['user_Image'] : 'uploads/defualt_profile.png' ?>"
+                          alt="alternate text" class="card-img card-img-horizontal sw-13 sw-md-12" />
+                      </a>
+                    </div>
+                    <div class="col">
+                      <div class="card-body pt-0 pb-0 h-100">
+                        <div class="row g-0 h-100 align-content-center">
+                          <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
+                            <a>
+                              <?= $val['shop_name'] ?? '' ?>
+                            </a>
+                          </div>
+                          <div class="col-12 col-md-3 d-flex align-items-center text-muted text-medium">
+                            <?= $val['user_name'] ?? '' ?>
+                          </div>
+                          <div
+                            class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">
+                            <?= date("d F Y", strtotime($val['order_date'])); ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?php
+                $index++;
+                if ($index == 5) {
+                  break;
+                }
+              endforeach;
+            } else { ?>
+              <div class="card mb-2 " data-title="Product Card" data-intro="Here is a product card with buttons!"
+                data-step="2">
+                <div class="row g-0 sh-12">
+                  <div class="col">
+                    <div class="card-body pt-0 pb-0 h-100">
+                      <div class="row g-0 h-100 align-content-center">
+                        <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
+                          No Order Available Yet !
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php } ?>
+          </div>
+        </div>
+        <!-- Products End -->
+      </div>
+      <div class="col-12 col-lg-4">
+        <!-- Today's Orders Start -->
+        <h2 class="small-title">Orders Stat's</h2>
+        <div class="card w-100 sh-50 mb-5">
+          <img src="img/banner/cta-square-4.webp" class="card-img h-100" alt="card image" />
+          <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
+            <div class="d-flex flex-column h-100 justify-content-between align-items-start">
+              <div>
+                <div class="cta-1 text-primary mb-1">
+                  <?= ordersManage($db, 'orders', 'Pending') ?? 0 ?>
+                </div>
+                <div class="lh-1-25 mb-0">Pending Orders</div>
+              </div>
+              <div>
+                <div class="cta-1 text-primary mb-1">
+                  <?= ordersManage($db, 'orders', 'Completed') ?? 0 ?>
+                </div>
+                <div class="lh-1-25 mb-0">Completed Orders</div>
+              </div>
+              <div>
+                <div class="cta-1 text-primary mb-1">
+                  <?= ordersManage($db, 'orders', 'Canceled') ?? 0 ?>
+                </div>
+                <div class="lh-1-25 mb-0">Canceled Orders</div>
+              </div>
+              <div>
+                <!-- <div class="cta-1 text-primary mb-1"><?= ordersManage($db, 'orders', 'Shipped') ?? 0 ?> </div> -->
+                <!-- <div class="lh-1-25 mb-0">Shipped Orders</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Today's Orders End -->
+
+        <!-- Categories Start -->
+        <h2 class="small-title">Categories</h2>
+        <div class="card mb-5 h-auto sh-lg-23">
+          <div class="card-body h-100">
+            <div class="row g-0 h-100">
+              <div class="col-12 col-sm-6 h-100 d-flex justify-content-between flex-column">
+                <a href="#" class="body-link d-flex mb-2">Whole Wheat (2)</a>
+                <a href="#" class="body-link d-flex mb-2">Brown (6)</a>
+                <a href="#" class="body-link d-flex mb-2">White (4)</a>
+                <a href="#" class="body-link d-flex mb-2">Vegetable (2)</a>
+              </div>
+              <div class="col-12 col-sm-6 h-100 d-flex justify-content-between flex-column">
+                <a href="#" class="body-link d-flex mb-2">Diet (2)</a>
+                <a href="#" class="body-link d-flex mb-2">Rye (6)</a>
+                <a href="#" class="body-link d-flex mb-2">Sourdough (3)</a>
+                <a href="#" class="body-link d-flex mb-2">Multigrain (4)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Categories End -->
+      </div>
+    </div>
+
+    <!-- Banners Start -->
+    <!-- <h2 class="small-title">Extend Your Knowledge</h2> -->
+    <!-- <div class="row g-2 mb-5">
             <div class="col-12 col-sm-6 col-xl-3">
               <div class="card w-100 sh-23 hover-img-scale-up">
                 <img src="img/banner/cta-vertical-1.webp" class="card-img h-100 scale" alt="card image" />
@@ -265,11 +292,11 @@ $orders = getAllOrders();
               </div>
             </div>
           </div> -->
-          <!-- Banners End -->
+    <!-- Banners End -->
 
-          <!-- Latest Registrations Start -->
-          <!-- <div class="row"> -->
-            <!-- <div class="col-12 col-xl-6 mb-5">
+    <!-- Latest Registrations Start -->
+    <!-- <div class="row"> -->
+    <!-- <div class="col-12 col-xl-6 mb-5">
               <h2 class="small-title">Latest Registrations</h2>
               <div class="card h-100-card">
                 <div class="card-body">
@@ -427,10 +454,10 @@ $orders = getAllOrders();
                 </div>
               </div>
             </div> -->
-            <!-- Latest Registrations End -->
+    <!-- Latest Registrations End -->
 
-            <!-- Tasks Start -->
-            <!-- <div class="col-12 col-xl-6 mb-5">
+    <!-- Tasks Start -->
+    <!-- <div class="col-12 col-xl-6 mb-5">
               <h2 class="small-title">Tasks</h2>
               <div class="card h-100-card">
                 <div class="card-body scroll-out">
@@ -520,12 +547,12 @@ $orders = getAllOrders();
                 </div>
               </div>
             </div> -->
-          <!-- </div> -->
-          <!-- Tasks End -->
+    <!-- </div> -->
+    <!-- Tasks End -->
 
-          <!-- Recent Ratings Start -->
-          <!-- <div class="row gy-5"> -->
-            <!-- <div class="col-lg-8">
+    <!-- Recent Ratings Start -->
+    <!-- <div class="row gy-5"> -->
+    <!-- <div class="col-lg-8">
               <h2 class="small-title">Recent Ratings</h2>
               <div class="scroll-out mb-n2">
                 <div class="scroll-by-count" data-count="4">
@@ -706,10 +733,10 @@ $orders = getAllOrders();
                 </div>
               </div>
             </div> -->
-            <!-- Recent Ratings End -->
+    <!-- Recent Ratings End -->
 
-            <!-- Spendings Start -->
-            <!-- <div class="col-lg-4">
+    <!-- Spendings Start -->
+    <!-- <div class="col-lg-4">
               <h2 class="small-title">Spendings</h2>
               <div class="card h-100-card">
                 <div class="card-body">
@@ -803,13 +830,13 @@ $orders = getAllOrders();
                 </div>
               </div>
             </div> -->
-            <!-- Spendings End -->
-          <!-- </div> -->
-        </div>
-      </main>
+    <!-- Spendings End -->
+    <!-- </div> -->
+  </div>
+</main>
 
-      <!-- Layout Footer Start -->
-      <!-- <footer>
+<!-- Layout Footer Start -->
+<!-- <footer>
         <div class="footer-content">
           <div class="container">
             <div class="row">
@@ -833,11 +860,11 @@ $orders = getAllOrders();
           </div>
         </div>
       </footer> -->
-      <!-- Layout Footer End -->
-    </div>
+<!-- Layout Footer End -->
+</div>
 
-    <!-- Theme Settings Modal Start -->
-    <!-- <div
+<!-- Theme Settings Modal Start -->
+<!-- <div
       class="modal fade modal-right scroll-out-negative"
       id="settings"
       data-bs-backdrop="true"
@@ -846,7 +873,7 @@ $orders = getAllOrders();
       aria-labelledby="settings"
       aria-hidden="true"
     > -->
-      <!-- <div class="modal-dialog modal-dialog-scrollable full" role="document">
+<!-- <div class="modal-dialog modal-dialog-scrollable full" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Theme Settings</h5>
@@ -1143,11 +1170,11 @@ $orders = getAllOrders();
           </div>
         </div>
       </div> -->
-    </div>
-    <!-- Theme Settings Modal End -->
+</div>
+<!-- Theme Settings Modal End -->
 
-    <!-- Niches Modal Start -->
-    <!-- <div
+<!-- Niches Modal Start -->
+<!-- <div
       class="modal fade modal-right scroll-out-negative"
       id="niches"
       data-bs-backdrop="true"
@@ -1156,7 +1183,7 @@ $orders = getAllOrders();
       aria-labelledby="niches"
       aria-hidden="true"
     > -->
-      <!-- <div class="modal-dialog modal-dialog-scrollable full" role="document">
+<!-- <div class="modal-dialog modal-dialog-scrollable full" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Niches</h5>
@@ -1385,10 +1412,10 @@ $orders = getAllOrders();
         </div>
       </div>
     </div> -->
-    <!-- Niches Modal End -->
+<!-- Niches Modal End -->
 
-    <!-- Theme Settings & Niches Buttons Start -->
-    <!-- <div class="settings-buttons-container">
+<!-- Theme Settings & Niches Buttons Start -->
+<!-- <div class="settings-buttons-container">
       <button type="button" class="btn settings-button btn-primary p-0" data-bs-toggle="modal" data-bs-target="#settings" id="settingsButton">
         <span class="d-inline-block no-delay" data-bs-delay="0" data-bs-offset="0,3" data-bs-toggle="tooltip" data-bs-placement="left" title="Settings">
           <i data-acorn-icon="paint-roller" class="position-relative"></i>
@@ -1400,10 +1427,10 @@ $orders = getAllOrders();
         </span>
       </button>
     </div> -->
-    <!-- Theme Settings & Niches Buttons End -->
+<!-- Theme Settings & Niches Buttons End -->
 
-    <!-- Search Modal Start -->
-    <!-- <div class="modal fade modal-under-nav modal-search modal-close-out" id="searchPagesModal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Search Modal Start -->
+<!-- <div class="modal fade modal-under-nav modal-search modal-close-out" id="searchPagesModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header border-0 p-0">
@@ -1425,10 +1452,10 @@ $orders = getAllOrders();
         </div>
       </div>
     </div> -->
-    <!-- Search Modal End -->
+<!-- Search Modal End -->
 
-    <!-- Vendor Scripts Start -->
-    <!-- <script src="js/vendor/jquery-3.5.1.min.js"></script>
+<!-- Vendor Scripts Start -->
+<!-- <script src="js/vendor/jquery-3.5.1.min.js"></script>
     <script src="js/vendor/bootstrap.bundle.min.js"></script>
     <script src="js/vendor/OverlayScrollbars.min.js"></script>
     <script src="js/vendor/autoComplete.min.js"></script>
@@ -1439,22 +1466,22 @@ $orders = getAllOrders();
 
     <script src="js/vendor/jquery.barrating.min.js"></script> -->
 
-    <!-- Vendor Scripts End -->
+<!-- Vendor Scripts End -->
 
-    <!-- Template Base Scripts Start -->
-    <!-- <script src="js/base/helpers.js"></script> -->
-    <!-- <script src="js/base/globals.js"></script>
+<!-- Template Base Scripts Start -->
+<!-- <script src="js/base/helpers.js"></script> -->
+<!-- <script src="js/base/globals.js"></script>
     <script src="js/base/nav.js"></script>
     <script src="js/base/search.js"></script>
     <script src="js/base/settings.js"></script> -->
-    <!-- Template Base Scripts End -->
-    <!-- Page Specific Scripts Start -->
+<!-- Template Base Scripts End -->
+<!-- Page Specific Scripts Start -->
 
-    <!-- <script src="js/pages/dashboard.visual.js"></script>
+<!-- <script src="js/pages/dashboard.visual.js"></script>
 
     <script src="js/common.js"></script>
     <script src="js/scripts.js"></script> -->
-    <!-- Page Specific Scripts End -->
-  <!-- </body>
+<!-- Page Specific Scripts End -->
+<!-- </body>
 </html> -->
 <?php include('footer.php') ?>
