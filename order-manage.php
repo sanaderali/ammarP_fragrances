@@ -366,11 +366,10 @@ $('.download-pdf').click(function () {
 
   const docDefinition = {
     content: [
-      { text: 'Order Invoice PDF Main Heading', style: 'mainHeader' },
-      { text: 'Page Sub Heading of invoice', style: 'subHeader' },
+      { text: 'Order Invoice PDF', style: 'mainHeader' },
       generateHeaderDetails(`#order-card_${ord_id}`),
       generateOrderInfo(`#order-card_${ord_id}`),
-      { text: ' ', margin: [0, 10] }, // Add a line space
+      { text: ' ', margin: [0, 10] }, 
       { table: generateTableData(`#oder_products_${ord_id}`) }
     ],
     styles: {

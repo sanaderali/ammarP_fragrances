@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2023 at 08:36 PM
+-- Generation Time: Aug 20, 2023 at 06:55 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,6 +24,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'Active',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `status`, `created_at`) VALUES
+(1, 'testing category', 'Deleted', '2023-08-18 15:33:24'),
+(2, 'testing category', 'Deleted', '2023-08-18 15:33:29'),
+(3, 'dsfds', 'Deleted', '2023-08-18 15:35:37'),
+(4, 'jhjhj', 'Deleted', '2023-08-18 15:37:16'),
+(5, 'test Category normal', 'Deleted', '2023-08-18 15:50:25'),
+(6, 'test category name', 'Deleted', '2023-08-18 16:45:48'),
+(7, 'test cat name', 'Deleted', '2023-08-18 16:45:59'),
+(8, 'testing', 'Deleted', '2023-08-18 16:50:06'),
+(9, 'name categories ...', 'Deleted', '2023-08-18 16:50:22'),
+(10, 'test name of category', 'Deleted', '2023-08-18 16:50:31'),
+(11, 'test name of categories', 'Deleted', '2023-08-18 16:51:10'),
+(12, 'nald change hjhj', 'Deleted', '2023-08-18 17:01:13'),
+(13, 'test nameo ', 'Active', '2023-08-18 17:18:23'),
+(14, 'cat 2', 'Deleted', '2023-08-18 17:19:18'),
+(15, 'cat name  2', 'Active', '2023-08-18 17:19:26'),
+(16, 'category name test', 'Active', '2023-08-18 18:00:47'),
+(17, 'test name edit', 'Deleted', '2023-08-18 18:05:10'),
+(18, 'testin name', 'Active', '2023-08-18 18:40:42'),
+(19, 'shampo', 'Active', '2023-08-18 18:40:56');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -31,7 +69,7 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` varchar(50) NOT NULL
+  `status` varchar(50) NOT NULL DEFAULT 'New'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,10 +77,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`) VALUES
-(14, 34, '2023-08-16 16:46:20', 'Completed'),
-(15, 34, '2023-08-16 16:47:14', 'Canceled'),
-(16, 37, '2023-08-16 18:21:16', 'Pending'),
-(17, 37, '2023-08-16 18:29:04', 'Pending');
+(32, 35, '2023-08-19 11:46:16', 'Pending'),
+(33, 35, '2023-08-19 11:46:35', 'Completed'),
+(34, 35, '2023-08-19 16:40:08', 'Completed'),
+(35, 35, '2023-08-19 18:11:35', 'Pending'),
+(36, 35, '2023-08-19 18:48:03', 'Completed');
 
 -- --------------------------------------------------------
 
@@ -63,17 +102,12 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `avialable`) VALUES
-(25, 14, 8, 1, 1),
-(26, 14, 7, 1, 1),
-(27, 14, 6, 1, 1),
-(28, 15, 8, 8, 8),
-(29, 15, 6, 4, 4),
-(30, 16, 8, 1, 1),
-(31, 16, 7, 1, 1),
-(32, 16, 6, 1, 1),
-(33, 17, 8, 1343, 1343),
-(34, 17, 7, 1343, 1343),
-(35, 17, 6, 1343, 1343);
+(77, 32, 14, 1, 1),
+(78, 32, 13, 1, 1),
+(79, 33, 16, 1, 1),
+(80, 34, 16, 5, 5),
+(81, 35, 16, 1, 1),
+(82, 36, 16, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -85,6 +119,7 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `productImage` text DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   `status` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -92,10 +127,18 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `productImage`, `status`) VALUES
-(6, 'prouduct 1', 'uploads/defualt_profile.png', 1),
-(7, 'product 2', 'uploads/defualt_products.png', 1),
-(8, 'product 3', 'uploads/defualt_products.png', 1);
+INSERT INTO `products` (`id`, `name`, `productImage`, `category_id`, `status`) VALUES
+(6, 'prouduct 1', 'uploads/defualt_profile.png', 0, 2),
+(7, 'product 2', 'uploads/defualt_products.png', 0, 2),
+(8, 'product 3', 'uploads/defualt_products.png', 0, 2),
+(9, 'test category', NULL, 0, 2),
+(10, 'test product cat', '', 0, 2),
+(11, 'testing', '15', 0, 2),
+(12, 'testing pro', 'uploads/defualt_products.png', 13, 2),
+(13, 'Testing Product ', 'uploads/defualt_products.png', 13, 1),
+(14, 'test projec name', 'uploads/defualt_profile.png', 13, 1),
+(15, 'Product ', 'uploads/defualt_profile.png', 16, 1),
+(16, 'sunslik', 'uploads/defualt_profile.png', 19, 1);
 
 -- --------------------------------------------------------
 
@@ -121,14 +164,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `shop_name`, `email`, `role`, `creadted_by`, `created_at`, `password`, `userImage`, `status`) VALUES
-(34, 'Admin', NULL, 'admin@gmail.com', 'admin', 1, '2023-08-16 18:22:14', '$2y$10$PLOLIaUUF7wpT59JVeTTGuWakSk7TMbdhjrImiBPYqUAT2r2XgMf.', 'uploads/defualt_products.png', 1),
-(35, 'User', NULL, 'user@gmail.com', 'user', 0, '2023-08-16 18:23:29', '$2y$10$wV.aCe8MbNtRoY4UJGRHtevG7JsSLyb2ppX1L93UjDQPUJj4cRrES', 'uploads/defualt_products.png', 1),
-(36, 'tesingshop', 'test tstingg', 'shopuser@gmail.com', 'user', 0, '2023-08-16 21:31:58', '', 'uploads/defualt_products.png', 1),
-(37, 'test user', 'test shop name', 'usernew@gmail.com', 'user', 0, '2023-08-16 23:20:36', '$2y$10$dYShzl0NyooMY4m.NFgOOeD9bzeKgUHIKogvgvNNzPB8JcLoXXJFm', 'uploads/defualt_profile.png', 1);
+(34, 'Admin', 'Admin Shop', 'admin@gmail.com', 'admin', 1, '2023-08-16 18:22:14', '$2y$10$PLOLIaUUF7wpT59JVeTTGuWakSk7TMbdhjrImiBPYqUAT2r2XgMf.', 'uploads/defualt_products.png', 1),
+(35, 'User', 'User Shop', 'user@gmail.com', 'user', 0, '2023-08-16 18:23:29', '$2y$10$wV.aCe8MbNtRoY4UJGRHtevG7JsSLyb2ppX1L93UjDQPUJj4cRrES', 'uploads/defualt_products.png', 2);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -162,22 +209,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
