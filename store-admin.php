@@ -217,10 +217,18 @@ $orders = getAllOrders();
               <div class="col-12 col-sm-6 h-100 d-flex justify-content-center flex-column">
               <?php
               $index = 1;
+              if($AllCategories){
                 foreach ($AllCategories as $key => $val): ?>
                   <a href="products.php" class="body-link d-flex mb-2"><?=  $index.'. '. $val['name'] ?></a>
                 <?php $index++;
-               endforeach; ?>  
+               endforeach;
+               }else{ ?> 
+                      <div class="row g-0 h-100 align-content-center">
+                        <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
+                          No Categories Avaible Yet !
+                        </div>
+                      </div>
+               <?php } ?>  
             </div>
             </div>
           </div>
