@@ -28,13 +28,17 @@ if (isset($_POST["action"]) && $_POST["action"] === "deleteCategory") {
     echo deleteCategory($db, $categorytId); 
 }
 
+if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
+    echo orderStatuschange($db, $_POST); 
+}
+
     // orders management .... 
     function saveOrder($db, $postData){
 
         $user_id = $_POST["user_id"];
         $selectedProducts = $_POST["products"];
 
-        $status = "Pending"; 
+        $status = "New"; 
         $orderQuery = "INSERT INTO orders (user_id, status) VALUES ('$user_id', '$status')";
         $db->query($orderQuery);
         $order_id = $db->insert_id;
@@ -67,13 +71,74 @@ if (isset($_POST["action"]) && $_POST["action"] === "deleteCategory") {
                 ORDER BY o.id DESC";
 
             }else{
-                $query = "SELECT o.id, o.order_date, o.status, u.userImage as userImage, u.name as user_name, u.shop_name,
+                $query = "SELECT o.id, o.order_date, o.status, u.userImage as user_Image, u.name as user_name, u.shop_name,
                 p.name as product_name, od.quantity, od.avialable
                 FROM orders as o
                 JOIN users as u ON o.user_id = u.id
                 JOIN order_details as od ON o.id = od.order_id
                 JOIN products as p ON od.product_id = p.id
                 WHERE u.id = '$user_Id'
+                ORDER BY o.id DESC";
+            }
+                
+        }
+        
+        $result = mysqli_query($db, $query);
+        $orders = array();
+
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $orderIndex = $row['id']; // Use the order ID as the index
+                
+                if (!isset($orders[$orderIndex])) {
+                    $orders[$orderIndex] = array(
+                        'order_id' => $row['id'],
+                        'order_date' => $row['order_date'],
+                        'status' => $row['status'],
+                        'user_Image' => $row['user_Image'],
+                        'user_name' => $row['user_name'],
+                        'shop_name' => $row['shop_name'],
+                        'product_details' => array()
+                    );
+                }
+
+                $productDetails = array(
+                    'product_name' => $row['product_name'],
+                    'quantity' => $row['quantity'],
+                    'available_quantities' => $row['avialable']
+                );
+
+                $orders[$orderIndex]['product_details'][] = $productDetails;
+            }
+        }
+
+        return $orders;
+    }
+
+    function getAllOrdersByCategory($categoryId) {
+        global $db; 
+        if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
+            $user_Id = $_SESSION['user']['id'];
+            if ($_SESSION['user_role'] == 'admin') {
+
+                $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name, u.userImage as user_Image,
+                p.name as product_name, od.quantity, od.avialable
+                FROM orders as o
+                join users as u on o.user_id = u.id
+                join order_details as od on o.id = od.order_id
+                join products as p on od.product_id = p.id
+                WHERE p.category_id = '$categoryId'
+                ORDER BY o.id DESC";
+
+            }else{
+                $query = "SELECT o.id, o.order_date, o.status, u.userImage as user_Image, u.name as user_name, u.shop_name,
+                p.name as product_name, od.quantity, od.avialable
+                FROM orders as o
+                JOIN users as u ON o.user_id = u.id
+                JOIN order_details as od ON o.id = od.order_id
+                JOIN products as p ON od.product_id = p.id
+                WHERE u.id = '$user_Id'
+                AND p.category_id = '$categoryId'
                 ORDER BY o.id DESC";
             }
                 
@@ -119,6 +184,20 @@ if (isset($_POST["action"]) && $_POST["action"] === "deleteCategory") {
     function ordersManage($db, $tableName,$status){
         $productCount = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as totalCount FROM $tableName Where status = '$status'"))['totalCount'];
         return $productCount;
+    }
+
+    function orderStatuschange($db,$post){
+        $orderID = $post["id"];
+        $newStatus = $post["status"];
+        $query = "UPDATE orders SET status = '$newStatus' WHERE id = '$orderID'";
+        $result = mysqli_query($db, $query);
+        if ($result) {
+          $return = 'yes';
+        }else{
+            $return = 'no';
+        } 
+
+        return $return;
     }
 
     // users management ... here...
@@ -255,6 +334,24 @@ if (isset($_POST["action"]) && $_POST["action"] === "deleteCategory") {
 
         return $products;
     }
+  
+    function getAllProductByCategory($categoryId) {
+        global $db; 
+
+        $query = "SELECT * FROM products WHERE status = 1 AND category_id = '$categoryId' ORDER By id DESC";
+        $result = mysqli_query($db, $query);
+
+        $categoryProducts = array();
+
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $categoryProducts[] = $row;
+            }
+        }
+
+        return $categoryProducts;
+    }
+
     function deleteProduct($db, $productId) {
         $query = "UPDATE products SET status = 2 WHERE id = $productId";
         $result = mysqli_query($db, $query);
