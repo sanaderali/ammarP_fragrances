@@ -349,7 +349,7 @@ $('.download-pdf').click(function () {
 
   const docDefinition = {
     content: [
-      { text: 'Order Invoice PDF', style: 'mainHeader' },
+      { text: 'Order Invoice', style: 'mainHeader' },
       generateHeaderDetails(`#order-card_${ord_id}`),
       generateOrderInfo(`#order-card_${ord_id}`),
       { text: ' ', margin: [0, 10] }, 
