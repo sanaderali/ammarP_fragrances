@@ -1,5 +1,6 @@
 <?php
 include('header.php');
+$AllCategories = getAllCategoris();
 $orders = getAllOrders();
 ?>
 <main>
@@ -213,18 +214,14 @@ $orders = getAllOrders();
         <div class="card mb-5 h-auto sh-lg-23">
           <div class="card-body h-100">
             <div class="row g-0 h-100">
-              <div class="col-12 col-sm-6 h-100 d-flex justify-content-between flex-column">
-                <a href="#" class="body-link d-flex mb-2">Whole Wheat (2)</a>
-                <a href="#" class="body-link d-flex mb-2">Brown (6)</a>
-                <a href="#" class="body-link d-flex mb-2">White (4)</a>
-                <a href="#" class="body-link d-flex mb-2">Vegetable (2)</a>
-              </div>
-              <div class="col-12 col-sm-6 h-100 d-flex justify-content-between flex-column">
-                <a href="#" class="body-link d-flex mb-2">Diet (2)</a>
-                <a href="#" class="body-link d-flex mb-2">Rye (6)</a>
-                <a href="#" class="body-link d-flex mb-2">Sourdough (3)</a>
-                <a href="#" class="body-link d-flex mb-2">Multigrain (4)</a>
-              </div>
+              <div class="col-12 col-sm-6 h-100 d-flex justify-content-center flex-column">
+              <?php
+              $index = 1;
+                foreach ($AllCategories as $key => $val): ?>
+                  <a href="products.php" class="body-link d-flex mb-2"><?=  $index.'. '. $val['name'] ?></a>
+                <?php $index++;
+               endforeach; ?>  
+            </div>
             </div>
           </div>
         </div>
