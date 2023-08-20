@@ -83,7 +83,7 @@ $AllCategories = getAllCategoris();
                         if ($AllProducts) {
                             foreach ($AllProducts as $key => $val):
                                 ?>
-                                <div class="card mb-2" data-title="Product Card"
+                                <div class="card product-card mb-2" data-title="Product Card"
                                     data-intro="Here is a product card with buttons!" data-step="2">
                                     <div class="row g-0 sh-12">
                                         <div class="col-auto">
@@ -99,7 +99,7 @@ $AllCategories = getAllCategoris();
                                                     <div
                                                         class="col-12 col-md-7 d-flex flex-column mb-2 mb-md-0 position-static">
                                                         <a>
-                                                            <?php echo $val['name'] ?? '' ?>
+                                                            <span class="product-title" ><?php echo $val['name'] ?? '' ?></span>
                                                         </a>
                                                     </div>
                                                     <div
@@ -240,6 +240,25 @@ $AllCategories = getAllCategoris();
 </main>
 
 <script>
+
+const searchInput = document.getElementById('productSearch');
+    const productCards = document.querySelectorAll('.product-card');
+
+    searchInput.addEventListener('input', function () {
+
+        const searchText = searchInput.value.trim().toLowerCase();
+
+        productCards.forEach(card => {
+            const title = card.querySelector('.product-title').textContent.toLowerCase();
+
+            if (title.includes(searchText)) {
+                card.style.display = 'block'; // Show matching cards
+            } else {
+                card.style.display = 'none'; // Hide non-matching cards
+            }
+        });
+    });
+
     function previewImage(input) {
         var imagePreview = document.getElementById("product-image-preview");
 
