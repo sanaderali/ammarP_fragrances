@@ -65,9 +65,9 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['user_role'])) {
       <div class="nav-content d-flex">
         <!-- Logo Start -->
         <div class="logo position-relative">
-          <a href="Dashboards.Default.html">
+          <a href="store-admin.php">
             <!-- Logo can be added directly -->
-            <img src="img/logo/Tech-White-Logo.png" alt="logo" />
+            <img src="img/logo/Tech-White-Logo.svg" alt="logo" />
 
             <!-- Or added via css to provide different ones for different color themes -->
 

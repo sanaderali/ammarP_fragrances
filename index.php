@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <div class="sh-11">
                 <a href="index.html">
                   <div class="my-logo">
-                    <img src="uploads/main-logo.png" alt="">
+                    <img src="uploads/main-logo.svg" alt="">
                   </div>
                 </a>
               </div>
