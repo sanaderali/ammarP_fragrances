@@ -6,7 +6,7 @@
 
   $categoryOrders = NULL;
   $success = NULL;
-  $categoryId = -1;
+  $categoryId = '';
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (isset($_POST['category_id'])) {
         $categoryId = $_POST['category_id'];
@@ -229,7 +229,7 @@
               <div class="card-body pt-0 pb-0 h-100">
                 <div class="row g-0 h-100 align-content-center">
                   <div  class="col-12 col-md-12 d-flex align-items-center justify-content-center">
-                  <span id="oder-available" class="fw-bold fs-5 ">No Order Available Yet!</span>
+                  <span id="oder-available" class="fw-bold fs-6">No Order Available Yet!</span>
                   </div>
                 </div>
               </div>

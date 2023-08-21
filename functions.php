@@ -9,6 +9,7 @@ function dd($value){
 }
 
 // ajax function calling ... 
+// delete ... calling 
 if (isset($_POST["action"]) && $_POST["action"] === "deleteUser") {
     $userId = $_POST["userId"];
     echo deleteUser($db, $userId); 
@@ -21,6 +22,11 @@ if (isset($_POST["action"]) && $_POST["action"] === "deleteProduct") {
 
 if (isset($_POST["action"]) && $_POST["action"] === "saveorder") {
     echo saveOrder($db, $_POST); 
+}
+// undo deleting ... calling 
+if (isset($_POST["action"]) && $_POST["action"] === "undoDelProduct") {
+    $productId = $_POST["productId"];
+    echo undoDelProduct($db, $productId); 
 }
 
 if (isset($_POST["action"]) && $_POST["action"] === "deleteCategory") {
@@ -335,6 +341,23 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
         return $products;
     }
   
+    function getAllDletedProduct() {
+        global $db; 
+
+        $query = "SELECT * FROM products WHERE status = 2 ORDER By id DESC";
+        $result = mysqli_query($db, $query);
+
+        $products = array();
+
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $products[] = $row;
+            }
+        }
+
+        return $products;
+    }
+
     function getAllProductByCategory($categoryId) {
         global $db; 
 
@@ -354,6 +377,23 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
 
     function deleteProduct($db, $productId) {
         $query = "UPDATE products SET status = 2 WHERE id = $productId";
+        $result = mysqli_query($db, $query);
+
+        if ($result) {
+            $productCount = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as productCount FROM products WHERE status = 1"))['productCount'];
+            if($productCount > 0){
+                return "success";
+
+            }else{
+                return "no-procut";
+            }
+        } else {
+            return "failure";
+        }
+    }
+
+    function undoDelProduct($db, $productId) {
+        $query = "UPDATE products SET status = 1 WHERE id = $productId";
         $result = mysqli_query($db, $query);
 
         if ($result) {

@@ -22,7 +22,7 @@ $orders = getAllOrders();
     <div class="row">
       <div class="col-12 col-lg-8">
         <!-- Inventory Start -->
-        <h2 class="small-title">Inventory</h2>
+        <h2 class="small-title font-weight-bold">Inventory</h2>
         <div class="mb-5">
           <div class="row g-2">
             <?php
@@ -106,7 +106,7 @@ $orders = getAllOrders();
 
         <!-- Products Start -->
         <div class="d-flex justify-content-between">
-          <h2 class="small-title">Top Orders</h2>
+          <h2 class="small-title font-weight-bold">Top Orders</h2>
           <a href="order-manage.php" class="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small"
             type="button">
             <span class="align-bottom">View All</span>
@@ -177,28 +177,28 @@ $orders = getAllOrders();
       </div>
       <div class="col-12 col-lg-4">
         <!-- Today's Orders Start -->
-        <h2 class="small-title">Orders Stat's</h2>
+        <h2 class="small-title font-weight-bold">Orders Stat's</h2>
         <div class="card w-100 sh-50 mb-5">
-          <img src="img/banner/cta-square-4.webp" class="card-img h-100" alt="card image" />
+          <img src="img/banner/cta-square-4.jpg" class="card-img h-100" alt="card image" />
           <div class="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
             <div class="d-flex flex-column h-100 justify-content-between align-items-start">
               <div>
                 <div class="cta-1 text-primary mb-1">
                   <?= ordersManage($db, 'orders', 'Pending') ?? 0 ?>
                 </div>
-                <div class="lh-1-25 mb-0">Pending Orders</div>
+                <div class="lh-1-25 mb-0 font-weight-bold">Pending Orders</div>
               </div>
               <div>
                 <div class="cta-1 text-primary mb-1">
                   <?= ordersManage($db, 'orders', 'Completed') ?? 0 ?>
                 </div>
-                <div class="lh-1-25 mb-0">Completed Orders</div>
+                <div class="lh-1-25 mb-0 font-weight-bold">Completed Orders</div>
               </div>
               <div>
                 <div class="cta-1 text-primary mb-1">
                   <?= ordersManage($db, 'orders', 'Canceled') ?? 0 ?>
                 </div>
-                <div class="lh-1-25 mb-0">Canceled Orders</div>
+                <div class="lh-1-25 mb-0 font-weight-bold">Canceled Orders</div>
               </div>
               <div>
                 <!-- <div class="cta-1 text-primary mb-1"><?= ordersManage($db, 'orders', 'Shipped') ?? 0 ?> </div> -->
@@ -210,7 +210,7 @@ $orders = getAllOrders();
         <!-- Today's Orders End -->
 
         <!-- Categories Start -->
-        <h2 class="small-title">Categories</h2>
+        <h2 class="small-title font-weight-bold">Categories</h2>
         <div class="card mb-5 h-auto sh-lg-23">
           <div class="card-body h-100">
             <div class="row g-0 h-100">
@@ -219,7 +219,7 @@ $orders = getAllOrders();
               $index = 1;
               if($AllCategories){
                 foreach ($AllCategories as $key => $val): ?>
-                  <a href="products.php" class="body-link d-flex mb-2"><?=  $index.'. '. $val['name'] ?></a>
+                  <a href="products.php" class="body-link d-flex  font-weight-bold mb-2"><?=  $index.'. '. $val['name'] ?></a>
                 <?php $index++;
                endforeach;
                }else{ ?> 
