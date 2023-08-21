@@ -13,7 +13,7 @@ if (!isset($_SESSION['user']) && !isset($_SESSION['user_role'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Acorn Admin Template | Visual Dashboard</title>
+  <title>Ammars Fragrances</title>
   <meta name="description"
     content="A dashboard implementation that mainly has visual items such as banners, call to action buttons and stats." />
   <!-- Favicon Tags Start -->
