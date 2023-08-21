@@ -1,21 +1,34 @@
 <?php
 include('header.php');
-
+$AllCategories = getAllCategoris();
+$categoryProducts = NULL;
+$categoryId = '';
+$imagePath = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $imagePath = '';
-    if (isset($_FILES["productImage"])) {
-        $targetDirectory = "uploads/";
-        $targetFile = $targetDirectory . basename($_FILES["productImage"]["name"]);
-        if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFile)) {
-            $imagePath = $targetFile;
+    if (isset($_POST['category_id']) || isset($_FILES["productImage"])) {
+        if (isset($_FILES["productImage"])) {
+            $targetDirectory = "uploads/";
+            $originalFileName = basename($_FILES["productImage"]["name"]);
+            
+            $newFileName = uniqid() . '_' . $originalFileName;
+            
+            $targetFile = $targetDirectory . $newFileName;
+            
+            if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFile)) {
+                $imagePath = $targetFile;
+            }
+
+            $response = storeProduct($db, $_POST, $imagePath);
         }
+        
+// fetching the products..
+        $categoryId = $_POST['category_id'];
+        $categoryProducts = getAllProductByCategory($categoryId);
+
     }
-    $response = storeProduct($db, $_POST, $imagePath);
 }
 
-$AllProducts = getAllProduct();
-
-$AllCategories = getAllCategoris();
+?>
 
 ?>
 <main>
@@ -38,34 +51,53 @@ $AllCategories = getAllCategoris();
         <div class="row py-5">
             <div class="col-12 col-xl-12 mb-5 ">
 
-                <!-- Search Start -->
-                <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
-                    <div
-                        class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
-                        <input id="productSearch" class="form-control" type="text"
-                            placeholder="Search by product title">
-                        <span class="search-magnifier-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="acorn-icons acorn-icons-search undefined">
-                                <circle cx="9" cy="9" r="7"></circle>
-                                <path d="M14 14L17.5 17.5"></path>
-                            </svg>
-                        </span>
-                        <span class="search-delete-icon d-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="acorn-icons acorn-icons-close undefined">
-                                <path d="M5 5 15 15M15 5 5 15"></path>
-                            </svg>
-                        </span>
+                <div class="row mb-2">
+                    <!-- Search Start -->
+                    <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
+                        <div
+                            class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
+                            <input id="productSearch" class="form-control" type="text"
+                                placeholder="Search by product title">
+                            <span class="search-magnifier-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-search undefined">
+                                    <circle cx="9" cy="9" r="7"></circle>
+                                    <path d="M14 14L17.5 17.5"></path>
+                                </svg>
+                            </span>
+                            <span class="search-delete-icon d-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="acorn-icons acorn-icons-close undefined">
+                                    <path d="M5 5 15 15M15 5 5 15"></path>
+                                </svg>
+                            </span>
+                        </div>
                     </div>
+                    <!-- Search End -->
+
+                    <!-- Dropdown Start -->
+                    <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-3">
+                        <form id="cat_id-form" action="products.php" method="POST">
+                            <select id="select-categoryid" style="border-color: black;" required="" class="form-control"
+                                name="category_id">
+                                <option value=""> -- Select Category --</option>
+                                <?php foreach ($AllCategories as $key => $val): ?>
+                                    <option value="<?= $val['id'] ?>" <?php if ($categoryId == $val['id'])
+                                          echo 'selected'; ?>>
+                                        <?= $val['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </form>
+                    </div>
+                    <!-- Dropdown End -->
+
                 </div>
-                <!-- Search End -->
 
                 <div class="d-flex justify-content-end">
-                    <!-- <h2 class="small-title">Products</h2> -->
-                    <button class="btn btn-info  mb-3 " type="button" data-bs-toggle="modal"
+                    <button class="btn btn-info mb-3 me-3" type="button" data-bs-toggle="modal"
                         data-bs-target="#closeButtonOutExample">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -75,13 +107,18 @@ $AllCategories = getAllCategoris();
                         Add Products
                     </button>
 
+                    <a class="btn btn-info mb-3" href="trashProducts.php">
+                        <i data-acorn-icon="bin" data-acorn-size="15"></i>
+                        <span class=" d-xxl-inline-block">Trash</span>
+                    </a>
                 </div>
+
 
                 <div class="scroll-div">
                     <div>
                         <?php
-                        if ($AllProducts) {
-                            foreach ($AllProducts as $key => $val):
+                        if ($categoryProducts) {
+                            foreach ($categoryProducts as $key => $val):
                                 ?>
                                 <div class="card product-card mb-2" data-title="Product Card"
                                     data-intro="Here is a product card with buttons!" data-step="2">
@@ -99,7 +136,9 @@ $AllCategories = getAllCategoris();
                                                     <div
                                                         class="col-12 col-md-7 d-flex flex-column mb-2 mb-md-0 position-static">
                                                         <a>
-                                                            <span class="product-title" ><?php echo $val['name'] ?? '' ?></span>
+                                                            <span class="product-title">
+                                                                <?php echo $val['name'] ?? '' ?>
+                                                            </span>
                                                         </a>
                                                     </div>
                                                     <div
@@ -135,7 +174,7 @@ $AllCategories = getAllCategoris();
                                             <div class="row g-0 h-100 align-content-center">
                                                 <div
                                                     class="col-12 col-md-12 d-flex align-items-center justify-content-center">
-                                                    No Procut Available Yet !
+                                                    <span id="product-available" class="fw-bold fs-6 "> No Procut Available Yet !</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,8 +279,16 @@ $AllCategories = getAllCategoris();
 </main>
 
 <script>
+        var cat_id = $('#select-categoryid').val();
+        if (cat_id === '') {
+            $('#product-available').text('Please Select the Category From Dropdown List');
+        } else {
+            $('#product-available').text('No product Available Yet!');
+        }
 
-const searchInput = document.getElementById('productSearch');
+
+
+    const searchInput = document.getElementById('productSearch');
     const productCards = document.querySelectorAll('.product-card');
 
     searchInput.addEventListener('input', function () {
@@ -275,6 +322,12 @@ const searchInput = document.getElementById('productSearch');
         }
     }
 
+    $(document).ready(function () {
 
+        $('#select-categoryid').change(function () {
+            $('#cat_id-form').submit();
+        });
+
+    });
 </script>
 <?php include('footer.php') ?>

@@ -122,6 +122,38 @@ $(document).ready(function() {
         });
     });
 
+    $(".undo-del-product").on("click", function() {
+        var productId = $(this).attr("data-id");
+        var deleteButton = $(this); 
+        $.ajax({
+            type: "POST",
+            url: "functions.php", 
+            data: { action: "undoDelProduct", productId: productId },
+            success: function(response) {
+                if (response.trim() === "success") { 
+                    var card = deleteButton.closest(".card");
+                    card.slideUp("slow", function() {
+                        card.remove(); 
+                    });
+                } 
+               else if (response.trim() === "no-procut") { 
+                    var card = deleteButton.closest(".card");
+                    card.slideUp("slow", function() {
+                        card.remove(); 
+                    });
+                    $('#last_productCard').removeClass('d-none');
+                } 
+                else {
+                    alert("Failed to delete product.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                alert("An error occurred. Please try again later.");
+            }
+        });
+    });
+
     // categories functionalities edit ... delete...
     $(".edit-category").on("click", function() {
         var productData = JSON.parse($(this).attr("data-product"));

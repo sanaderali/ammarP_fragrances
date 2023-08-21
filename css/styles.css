@@ -14483,10 +14483,11 @@ html[data-placement=horizontal] .nav-container .logo img,
 html[data-placement=horizontal] .nav-container .logo .img,
 html[data-placement=vertical] .nav-container .logo img,
 html[data-placement=vertical] .nav-container .logo .img {
-  width: 100px;
+  width: 109px;
   min-height: 35px;
   object-position: left;
   object-fit: cover;
+  color:#fff;
   transition: width var(--transition-time), height var(--transition-time);
 }
 html[data-placement=horizontal] .nav-container .logo .img,
