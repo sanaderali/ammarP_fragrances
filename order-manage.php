@@ -113,13 +113,13 @@
               
               <div class="col-lg-2 d-flex align-items-center mb-1 mb-lg-0">
                 <p class="mb-0 text-alternate"><b>Oder Date</b><br>
-                <span class="order-date"> <?= date("d F Y", strtotime($val['order_date'])); ?> </span>
+                <span class="order-date"> <?= date("d F Y H:i:s", strtotime($val['order_date'])); ?> </span>
                 </p>
               </div>
 
               <div class="col-lg-2 d-flex align-items-center">
                 <p class="mb-0 text-alternate"><b>Products Category</b><br>
-                <span class="text-camelcase product-category"> <?= $val['user_name'] ?? '' ?> </span>
+                <span class="text-camelcase product-category"> <?= $val['category_name'] ?? '' ?> </span>
                 </p>
               </div>
 
