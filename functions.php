@@ -54,7 +54,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
             $quantity = $product["quantity"];
             $avialable = $product["avialable"];
 
-            $orderDetailsQuery = "INSERT INTO order_details (order_id, product_id, quantity,avialable) VALUES ('$order_id', '$product_id', '$quantity','$quantity')";
+            $orderDetailsQuery = "INSERT INTO order_details (order_id, product_id, quantity,avialable) VALUES ('$order_id', '$product_id', '$quantity','$avialable')";
             $db->query($orderDetailsQuery);
         }
 
@@ -128,21 +128,23 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
             if ($_SESSION['user_role'] == 'admin') {
 
                 $query = "SELECT o.id, o.order_date, o.status, u.name as user_name, u.shop_name, u.userImage as user_Image,
-                p.name as product_name, od.quantity, od.avialable
+                p.name as product_name, c.name as category_name, od.quantity, od.avialable
                 FROM orders as o
                 join users as u on o.user_id = u.id
                 join order_details as od on o.id = od.order_id
                 join products as p on od.product_id = p.id
+                join categories as c on p.category_id = c.id
                 WHERE p.category_id = '$categoryId'
                 ORDER BY o.id DESC";
 
             }else{
                 $query = "SELECT o.id, o.order_date, o.status, u.userImage as user_Image, u.name as user_name, u.shop_name,
-                p.name as product_name, od.quantity, od.avialable
+                p.name as product_name,c.name as category_name, od.quantity, od.avialable
                 FROM orders as o
                 JOIN users as u ON o.user_id = u.id
                 JOIN order_details as od ON o.id = od.order_id
                 JOIN products as p ON od.product_id = p.id
+                join categories as c on p.category_id = c.id
                 WHERE u.id = '$user_Id'
                 AND p.category_id = '$categoryId'
                 ORDER BY o.id DESC";
@@ -165,6 +167,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
                         'user_Image' => $row['user_Image'],
                         'user_name' => $row['user_name'],
                         'shop_name' => $row['shop_name'],
+                        'category_name' => $row['category_name'],
                         'product_details' => array()
                     );
                 }

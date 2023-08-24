@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: store-admin.php");
         exit();
       } else {
-        header("Location: orders.php");
+        header("Location: order-manage.php");
         exit();
       }
     } else {

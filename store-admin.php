@@ -142,7 +142,7 @@ $orders = getAllOrders();
                           </div>
                           <div
                             class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">
-                            <?= date("d F Y", strtotime($val['order_date'])); ?>
+                            <?= date("d F Y  H:i:s", strtotime($val['order_date'])); ?>
                           </div>
                         </div>
                       </div>
