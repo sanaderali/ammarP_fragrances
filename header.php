@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE); 
 session_start();
 
 if (!isset($_SESSION['user']) && !isset($_SESSION['user_role'])) {
