@@ -136,7 +136,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
 
         $page = "";
         $index = 0;
-        if(isset($post["page_no"])){
+        if(isset($post["page_no"]) && !empty($post["page_no"])){
             $page = $post["page_no"];
         }else{
             $page = 1;
@@ -144,13 +144,15 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
         $categoryId = $post["category_id"];
         $start_date =NULL;
          $end_date= NULL;
-        if($post["date_range"]){
-            list($start_date, $end_date) = explode(" , ", $dateRange);
+        if($post["start_date"]){
+            $start_date = $post["start_date"];
+        }
 
+        if($post["end_date"]){
+            $end_date = $post["end_date"];
         }
 
         $offset = ($page - 1) * $limit_per_page;
-
 
         if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
             $user_Id = $_SESSION['user']['id'];
@@ -162,14 +164,11 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
                 JOIN users as u ON o.user_id = u.id
                 JOIN categories as c on o.category_id = c.id
                 WHERE o.category_id = '$categoryId'";
-        
-        if (!empty($start_date) && !empty($end_date)) {
-            $sql .= " AND DATE(o.order_date) BETWEEN '$start_date' AND '$end_date'";
-        }
-        
-        $sql .= " ORDER BY o.id DESC
+                if (!empty($start_date) && !empty($end_date)) {
+                    $sql .= " AND DATE(o.order_date) BETWEEN '" . (string)$start_date . "' AND '" . (string)$end_date . "'";
+                }
+                $sql .= " ORDER BY o.id DESC
                   LIMIT {$offset}, {$limit_per_page}";
-        
 
             }else{
 
@@ -178,8 +177,11 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
                 JOIN users as u ON o.user_id = u.id
                 JOIN categories as c on o.category_id = c.id
                 WHERE u.id = '$user_Id'
-                AND o.category_id = '$categoryId'
-                ORDER BY o.id DESC
+                AND o.category_id = '$categoryId'";
+                if (!empty($start_date) && !empty($end_date)) {
+                    $sql .= " AND DATE(o.order_date) BETWEEN '" . (string)$start_date . "' AND '" . (string)$end_date . "'";
+                }
+                $sql .= " ORDER BY o.id DESC
                 LIMIT {$offset}, {$limit_per_page}";
             }
                 
@@ -295,15 +297,21 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
                     JOIN users as u ON o.user_id = u.id
                     JOIN categories as c on o.category_id = c.id
                     WHERE o.category_id = '$categoryId'";
+                    if (!empty($start_date) && !empty($end_date)) {
+                        $sql_3 .= " AND DATE(o.order_date) BETWEEN '" . (string)$start_date . "' AND '" . (string)$end_date . "'";
+                    }
     
                 }else{
     
-                    $sql_3 = "SELECT id as total_records
+                    $sql_3 = "SELECT o.id as total_records
                     FROM orders as o
                     JOIN users as u ON o.user_id = u.id
                     JOIN categories as c on o.category_id = c.id
                     WHERE u.id = '$user_Id'
                     AND o.category_id = '$categoryId'";
+                    if (!empty($start_date) && !empty($end_date)) {
+                        $sql_3 .= " AND DATE(o.order_date) BETWEEN '" . (string)$start_date . "' AND '" . (string)$end_date . "'";
+                    }
                 }
             }
 

@@ -80,9 +80,9 @@ $categoryId = -1;
             </div>
             <!-- Dropdown End -->
             <!-- Controls End -->
-            <div id="order-statusplaced" class=" d-none col-8 mx-auto text-center alert alert-success rounded-pill">
+        </div>
+        <div id="order-statusplaced" class=" d-none col-8 mx-auto text-center alert alert-success rounded-pill">
                 <span class="text-bold">Order Submited Successfully </span>
-            </div>
         </div>
   
         <div class="row g-0">
@@ -286,7 +286,7 @@ $categoryId = -1;
                       }, 2000);
                     
                     setTimeout(function () {
-                        window.location.href = "order-manage.php";
+                        window.location.href = "order-manage.php?category_id=" + category_id;;
                     }, 1500);
                 },
                 error: function (xhr, status, error) {

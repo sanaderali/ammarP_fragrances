@@ -111,11 +111,26 @@
 
             <!-- Dropdown End -->
             <!-- Controls End -->
-            <div id="order-statusChange" class=" d-none col-8 mx-auto text-center alert alert-success rounded-pill">
+        </div>
+        <div id="order-statusChange" class=" d-none col-8 mx-auto text-center alert alert-success rounded-pill">
                 <span class="text-bold">Order Status changed Successfully </span>
             </div>
+        <div id="data-container" > 
+        <div class="card mb-2" data-title="Product Card" data-intro="Here is a product card with buttons!" data-step="2">
+            <div class="row g-0 sh-12">
+                <div class="col">
+                <div class="card-body pt-0 pb-0 h-100">
+                    <div class="row g-0 h-100 align-content-center">
+                    <div class="col-12 col-md-12 d-flex align-items-center justify-content-center">
+                        <span id="oder-available" class="fw-bold fs-6">Please Select Category </span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
         </div>
-        <div id="data-container" > </div>
   
 </div>
     
@@ -323,19 +338,73 @@ function generateTableData(tableSelector) {
         });
 
         $('#dateRangePicker').on('apply.daterangepicker', function(ev, picker) {
-            var selectedDateRange = picker.startDate.format('YYYY-MM-DD') + ' , ' + picker.endDate.format('YYYY-MM-DD');
-            
+            var selectedDateRange = picker.startDate.format('YYYY-MM-DD') + ' , ' + picker.endDate.format('YYYY-MM-DD');         
             console.log("Selected date range:", selectedDateRange);
-            loadRecords(page = null , selectedDateRange)
-            // You can perform any further operations here, such as fetching data
-            // using AJAX based on the selected date range
+            loadRecords(null , selectedDateRange)
         });
 
         $('#dateRangePicker').on('cancel.daterangepicker', function(ev, picker) {
             $(this).val('');
         });
+
+        // Retrieve the category_id value from the URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+            var category_id = urlParams.get('category_id');
+
+            // Set the selected value in the dropdown
+            if (category_id) {
+                $('#select-categoryid').val(category_id);
+                $('#select-categoryid').change();
+                currentPage = 1; 
+                $('#dateRangePicker').val('');
+                loadRecords(currentPage);
+
+            }
+
+  // Event listener for category dropdown change
+  $('#select-categoryid').on('change', function () {
+    currentPage = 1; 
+    $('#dateRangePicker').val('');
+    loadRecords(currentPage);
+
+  });
+
+      //Pagination Code
+      $(document).on("click","#pagination a",function(e) {
+      e.preventDefault();
+      var page_id = $(this).attr("id");
+      var selectedDate = $('#dateRangePicker').val().replace(' - ', ' , ');
+      loadRecords(page_id , selectedDate)
+    })
+
+  // Function to load records using AJAX
+  function loadRecords(page = null , rangedate = null ) {
+    var categoryId = $('#select-categoryid').val();
+
+    $.ajax({
+      url: 'functions.php',
+      type: 'POST',
+      data: { 
+        action:'pagination_orders',
+        category_id: categoryId,
+        page_no: page , 
+        start_date: rangedate ? rangedate.split(' , ')[0] : null, 
+        end_date: rangedate ? rangedate.split(' , ')[1] : null, 
+      },
+      success: function (response) {
+        $('#data-container').html(response);
+      },
+      error: function (error) {
+        // Handle any error that occurs during the AJAX request
+      }
     });
-</script>
+  }
+})
+ 
+
+
+  </script>
+
 
  <!-- Include necessary CSS and JavaScript -->
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.css">
@@ -345,41 +414,4 @@ function generateTableData(tableSelector) {
 <!-- Include Bootstrap Pagination plugin via CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
-<script>
-$(document).ready(function () {
-
-  // Event listener for category dropdown change
-  $('#select-categoryid').on('change', function () {
-    currentPage = 1; // Reset to page 1 when category changes
-    loadRecords(currentPage); // Load records when category changes
-  });
-
-      //Pagination Code
-      $(document).on("click","#pagination a",function(e) {
-      e.preventDefault();
-      var page_id = $(this).attr("id");
-
-      loadRecords(page_id);
-    })
-
-  // Function to load records using AJAX
-  function loadRecords(page = null , rangedate =null) {
-    var categoryId = $('#select-categoryid').val();
-
-    $.ajax({
-      url: 'functions.php',
-      type: 'POST',
-      data: { action:'pagination_orders',category_id: categoryId, page_no: page , date_range:rangedate },
-      success: function (response) {
-        $('#dateRangePicker').val('');
-        $('#data-container').html(response);
-      },
-      error: function (error) {
-        // Handle any error that occurs during the AJAX request
-      }
-    });
-  }
-})
-
-  </script>
 <?php include('footer.php'); ?>
