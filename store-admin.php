@@ -83,6 +83,10 @@ $orders = getAllOrders();
               </a>
             </div>
 
+            <?php
+            if (isset($_SESSION['user']) && isset($_SESSION['user_role'])) {
+              if ($_SESSION['user_role'] == 'admin') {
+                ?>
             <div class="col-12 col-sm-6 col-lg-3">
               <a href="products.php">
                 <div class="card hover-scale-up cursor-pointer sh-19">
@@ -100,6 +104,8 @@ $orders = getAllOrders();
                 </div>
               </a>
             </div>
+            <?php }
+            } ?>
           </div>
         </div>
         <!-- Inventory End -->
