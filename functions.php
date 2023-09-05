@@ -636,40 +636,41 @@ if (isset($_POST["action"]) && $_POST["action"] === "OrderStatus") {
     }
 
     // orders_bug_fix();
+
     function orders_bug_fix(){
         global $db;
         // 1. Retrieve a list of order_id values from the orders table
-$sql = "SELECT id FROM orders";
-$result = mysqli_query($db, $sql);
+        $sql = "SELECT id FROM orders";
+        $result = mysqli_query($db, $sql);
 
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $orderID = $row['id'];
-        
-        // 2. For each order_id, execute a query to fetch the corresponding cat_id
-        $catSql = "SELECT c.id AS cat_id
-                   FROM order_details AS od
-                   JOIN products AS p ON p.id = od.product_id
-                   JOIN categories AS c ON c.id = p.category_id
-                   WHERE od.order_id = $orderID";
-        
-        $catResult = mysqli_query($db, $catSql);
-        if ($catResult) {
-            while ($catRow = mysqli_fetch_assoc($catResult)) {
-                $catID = $catRow['cat_id'];
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $orderID = $row['id'];
                 
-                // 3. Update the orders table with the fetched cat_id
-                $updateSql = "UPDATE orders SET category_id = $catID WHERE id = $orderID";
-                mysqli_query($db, $updateSql);
+                // 2. For each order_id, execute a query to fetch the corresponding cat_id
+                $catSql = "SELECT c.id AS cat_id
+                        FROM order_details AS od
+                        JOIN products AS p ON p.id = od.product_id
+                        JOIN categories AS c ON c.id = p.category_id
+                        WHERE od.order_id = $orderID";
                 
-                // Now you have $orderID and $catID for further processing
-                // You've also updated the category_id for the current order
+                $catResult = mysqli_query($db, $catSql);
+                if ($catResult) {
+                    while ($catRow = mysqli_fetch_assoc($catResult)) {
+                        $catID = $catRow['cat_id'];
+                        
+                        // 3. Update the orders table with the fetched cat_id
+                        $updateSql = "UPDATE orders SET category_id = $catID WHERE id = $orderID";
+                        mysqli_query($db, $updateSql);
+                        
+                        // Now you have $orderID and $catID for further processing
+                        // You've also updated the category_id for the current order
+                    }
+                }
             }
         }
     }
-}
 
-    }
 
 ?>
 
